@@ -4,7 +4,6 @@ import java.time.LocalDate;
 
 public class UserDto {
 
-    private Long id;
     private String email;
     private String password;
     private String role;
@@ -18,11 +17,10 @@ public class UserDto {
     private String country;
     private String pincode;
 
-    public UserDto(Long id, String email, String password, String role, String surname, String givenname, 
+    public UserDto(String email, String password, String role, String surname, String givenname, 
                    LocalDate dob, String mobno, String gender, String city, String state, String country, 
                    String pincode) {
     	super();
-        this.id = id;
         this.email = email;
         this.password = password;
         this.role = role;
@@ -38,15 +36,6 @@ public class UserDto {
     }
 
     // Getters and Setters
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getEmail() {
         return email;
     }

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoNest - Register</title>
+    <style>
+    body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+	}
+	
+	.container {
+	    background-color: white;
+	    padding: 20px;
+	    border-radius: 8px;
+	    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+	    width: 450px;
+	}
+	
+	h1 {
+		font-family: Arial, sans-serif;
+		text-rendering: optimizeLegibility;
+    	padding-bottom: 4px;
+    	font-weight: 400;
+	    font-size: 28px;
+	    line-height: 1.2;
+	    margin-bottom: 10px !important;
+	    align-content: center;
+	}
+	
+	h2 {
+	    text-align: center;
+	    margin-bottom: 20px;
+	}
+	
+	.form-group {
+	    margin-bottom: 15px;
+	}
+	
+	.form-group label {
+	    display: block;
+	    margin-bottom: 5px;
+	    font-weight: bold;
+	}
+	
+	.form-group input,
+	.form-group select {
+	    width: 100%;
+	    padding: 10px;
+	    border: 1px solid #ccc;
+	    border-radius: 5px;
+	    box-sizing: border-box;
+	}
+	
+	.form-group small {
+	    display: block;
+	    margin-top: 5px;
+	    color: #666;
+	}
+	
+	.form-row {
+	    display: flex;
+	    justify-content: space-between;
+	}
+	
+	.form-row .form-group {
+	    flex: 0 0 48%;
+	}
+	
+	button {
+	    width: 100%;
+	    padding: 12px;
+	    background-color: #ffcc00;
+	    border: none;
+	    border-radius: 5px;
+	    font-size: 16px;
+	    font-weight: bold;
+	    cursor: pointer;
+	    margin-top: 15px;
+	}
+	
+	button:hover {
+	    background-color: #ffb600;
+	}
+	
+	.info {
+	    margin-top: 15px;
+	    text-align: center;
+	    font-size: 12px;
+	    color: #666;
+	}
+	
+	.additional-options {
+	    margin-top: 15px;
+	    text-align: center;
+	    font-size: 12px;
+	    color: #666;
+	}
+	
+	.additional-options a {
+	    color: #0073bb;
+	    text-decoration: none;
+	}
+	
+	.additional-options a:hover {
+	    text-decoration: underline;
+	}
+	    
+    </style>
+</head>
+<body>
+    <div class="container">
+    	<div class="message" th:if="${message != null}">
+           [[${message}]]
+        </div>
+        <h1>Create Account</h1>
+        <form th:action="@{/registration}" method="POST" role="form"
+         th:object="${user}">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="givenname">Given Name</label>
+                    <input th:field="*{givenname}" type="text" id="givenname" name="givenname" required>
+                </div>
+                <div class="form-group">
+                    <label for="surname">SurName</label>
+                    <input th:field="*{surname}" type="text" id="surname" name="surname" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input th:field="*{email}" type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="mobno">Mobile Number</label>
+                    <input th:field="*{mobno}" type="tel" id="mobno" name="mobno" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input th:field="*{password}" type="password" id="password" name="password" required>
+                <small>Passwords must be at least 6 characters.</small>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="dob">Date of Birth</label>
+                    <input th:field="*{dob}" type="date" id="dob" name="dob" required>
+                </div>
+                <div class="form-group">
+                    <label for="gender">Gender</label>
+                    <select th:field="*{gender}" id="gender" name="gender" required>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="city">City</label>
+                    <input th:field="*{city}" type="text" id="city" name="city" required>
+                </div>
+                <div class="form-group">
+                    <label for="state">State</label>
+                    <input th:field="*{state}" type="text" id="state" name="state" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="country">Country</label>
+                    <input th:field="*{country}" type="text" id="country" name="country" required>
+                </div>
+                <div class="form-group">
+                    <label for="pincode">Pincode</label>
+                    <input th:field="*{pincode}" type="text" id="pincode" name="pincode" required>
+                </div>
+            </div>
+            <button type="submit">Create an account</button>
+        </form>
+        <div class="additional-options">
+            <p>Already have an account? <a href="#">Sign in</a></p>
+        </div>
+    </div>
+</body>
+</html>

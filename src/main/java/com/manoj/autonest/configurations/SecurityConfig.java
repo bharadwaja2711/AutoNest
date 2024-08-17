@@ -1,8 +1,10 @@
 package com.manoj.autonest.configurations;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -12,25 +14,25 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.manoj.autonest.service.CustomSuccessHandler;
-import com.manoj.autonest.service.CustomerUserDetailsService;
+import com.manoj.autonest.service.CustomUserDetailsService;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-
-    @Autowired
-    private CustomSuccessHandler customSuccessHandler;
-
-    @Autowired
-    private CustomerUserDetailsService customerUserDetailsService;
+	
+	@Autowired
+    CustomSuccessHandler customSuccessHandler;
+	
+	@Autowired
+	CustomUserDetailsService customUserDetailsService;
 
     @Bean
-    PasswordEncoder passwordEncoder() {
+    public static PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     @Bean
-    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(c -> c.disable())
             .authorizeHttpRequests(request -> request
                 .requestMatchers("/admin-page").hasAuthority("ADMIN")
@@ -42,19 +44,15 @@ public class SecurityConfig {
                 .loginProcessingUrl("/login")
                 .successHandler(customSuccessHandler)
                 .permitAll())
-            .logout(logout -> logout
-                .invalidateHttpSession(true)
-                .clearAuthentication(true)
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/login?logout")
-                .permitAll());
-
-        return http.build();
+            .logout(form -> form.invalidateHttpSession(true).clearAuthentication(true)
+    				.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+    				.logoutSuccessUrl("/login?logout").permitAll());
+    		
+    		return http.build();
     }
 
     @Autowired
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(customerUserDetailsService)
-            .passwordEncoder(passwordEncoder());
+        auth.userDetailsService(customUserDetailsService).passwordEncoder(passwordEncoder());
     }
 }
