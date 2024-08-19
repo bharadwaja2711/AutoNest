@@ -22,6 +22,11 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    
+    @GetMapping("/")
+    public String index() {
+        return "index";
+    }
 
     @GetMapping("/registration")
     public String getRegistrationPage(@ModelAttribute("user") UserDto userDto) {

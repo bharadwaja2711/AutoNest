@@ -4,131 +4,118 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AutoNest - Register</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
-    body {
-    font-family: Arial, sans-serif;
-    background-color: #f2f2f2;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-	}
-	
-	.container {
-	    background-color: white;
-	    padding: 20px;
-	    border-radius: 8px;
-	    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
-	    width: 450px;
-	}
-	
-	h1 {
-		font-family: Arial, sans-serif;
-		text-rendering: optimizeLegibility;
-    	padding-bottom: 4px;
-    	font-weight: 400;
-	    font-size: 28px;
-	    line-height: 1.2;
-	    margin-bottom: 10px !important;
-	    align-content: center;
-	}
-	
-	h2 {
-	    text-align: center;
-	    margin-bottom: 20px;
-	}
-	
-	.form-group {
-	    margin-bottom: 15px;
-	}
-	
-	.form-group label {
-	    display: block;
-	    margin-bottom: 5px;
-	    font-weight: bold;
-	}
-	
-	.form-group input,
-	.form-group select {
-	    width: 100%;
-	    padding: 10px;
-	    border: 1px solid #ccc;
-	    border-radius: 5px;
-	    box-sizing: border-box;
-	}
-	
-	.form-group small {
-	    display: block;
-	    margin-top: 5px;
-	    color: #666;
-	}
-	
-	.form-row {
-	    display: flex;
-	    justify-content: space-between;
-	}
-	
-	.form-row .form-group {
-	    flex: 0 0 48%;
-	}
-	
-	button {
-	    width: 100%;
-	    padding: 12px;
-	    background-color: #ffcc00;
-	    border: none;
-	    border-radius: 5px;
-	    font-size: 16px;
-	    font-weight: bold;
-	    cursor: pointer;
-	    margin-top: 15px;
-	}
-	
-	button:hover {
-	    background-color: #ffb600;
-	}
-	
-	.info {
-	    margin-top: 15px;
-	    text-align: center;
-	    font-size: 12px;
-	    color: #666;
-	}
-	
-	.additional-options {
-	    margin-top: 15px;
-	    text-align: center;
-	    font-size: 12px;
-	    color: #666;
-	}
-	
-	.additional-options a {
-	    color: #0073bb;
-	    text-decoration: none;
-	}
-	
-	.additional-options a:hover {
-	    text-decoration: underline;
-	}
-	    
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+            width: 450px;
+        }
+
+        h1 {
+            font-family: Arial, sans-serif;
+            text-rendering: optimizeLegibility;
+            padding-bottom: 4px;
+            font-weight: 400;
+            font-size: 28px;
+            line-height: 1.2;
+            margin-bottom: 10px !important;
+            align-content: center;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .form-group small {
+            display: block;
+            margin-top: 5px;
+            color: #666;
+        }
+
+        .form-row {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .form-row .form-group {
+            flex: 0 0 48%;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #ffcc00;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        button:hover {
+            background-color: #ffcc00;
+        }
+
+        .additional-options {
+            margin-top: 15px;
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .additional-options a {
+            color: #0073bb;
+            text-decoration: none;
+        }
+
+        .additional-options a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-    	<div class="message" th:if="${message != null}">
-           [[${message}]]
+        <div class="message" th:if="${message != null}">
+            [[${message}]]
         </div>
         <h1>Create Account</h1>
-        <form th:action="@{/registration}" method="POST" role="form"
-         th:object="${user}">
+        <form th:action="@{/registration}" method="POST" role="form" th:object="${user}">
             <div class="form-row">
                 <div class="form-group">
                     <label for="givenname">Given Name</label>
                     <input th:field="*{givenname}" type="text" id="givenname" name="givenname" required>
                 </div>
                 <div class="form-group">
-                    <label for="surname">SurName</label>
+                    <label for="surname">Surname</label>
                     <input th:field="*{surname}" type="text" id="surname" name="surname" required>
                 </div>
             </div>
@@ -161,21 +148,25 @@
                     </select>
                 </div>
             </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="city">City</label>
-                    <input th:field="*{city}" type="text" id="city" name="city" required>
-                </div>
-                <div class="form-group">
-                    <label for="state">State</label>
-                    <input th:field="*{state}" type="text" id="state" name="state" required>
-                </div>
+            <div class="form-group">
+                <label for="country">Country</label>
+                <select th:field="*{country}" id="country" name="country" required>
+                    <option value="">Select Country</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="state">State</label>
+                <select th:field="*{state}" id="state" name="state" required>
+                    <option value="">Select State</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="city">City</label>
+                <select th:field="*{city}" id="city" name="city" required>
+                    <option value="">Select City</option>
+                </select>
             </div>
             <div class="form-row">
-                <div class="form-group">
-                    <label for="country">Country</label>
-                    <input th:field="*{country}" type="text" id="country" name="country" required>
-                </div>
                 <div class="form-group">
                     <label for="pincode">Pincode</label>
                     <input th:field="*{pincode}" type="text" id="pincode" name="pincode" required>
@@ -187,5 +178,66 @@
             <p>Already have an account? <a href="#">Sign in</a></p>
         </div>
     </div>
+
+    <script>
+        $(document).ready(function() {
+            const apiKey = 'TllNdFpja2ZTTHoxclJvSDFiV0lBM1FFZlVxVndlZFZGV1RmWTc3RQ==';
+            const headers = {
+                "X-CSCAPI-KEY": apiKey
+            };
+            
+            // Load countries
+            $.ajax({
+                url: 'https://api.countrystatecity.in/v1/countries',
+                type: 'GET',
+                headers: headers,
+                success: function(countries) {
+                    $.each(countries, function(index, country) {
+                        $('#country').append(`<option value="${country.iso2}">${country.name}</option>`);
+                    });
+                }
+            });
+
+            // Load states based on country
+            $('#country').on('change', function() {
+                const countryIso = $(this).val();
+                $('#state').empty().append('<option value="">Select State</option>');
+                $('#city').empty().append('<option value="">Select City</option>');
+                
+                if (countryIso) {
+                    $.ajax({
+                        url: `https://api.countrystatecity.in/v1/countries/${countryIso}/states`,
+                        type: 'GET',
+                        headers: headers,
+                        success: function(states) {
+                            $.each(states, function(index, state) {
+                                $('#state').append(`<option value="${state.iso2}">${state.name}</option>`);
+                            });
+                        }
+                    });
+                }
+            });
+
+            // Load cities based on state
+            $('#state').on('change', function() {
+                const countryIso = $('#country').val();
+                const stateIso = $(this).val();
+                $('#city').empty().append('<option value="">Select City</option>');
+
+                if (stateIso) {
+                    $.ajax({
+                        url: `https://api.countrystatecity.in/v1/countries/${countryIso}/states/${stateIso}/cities`,
+                        type: 'GET',
+                        headers: headers,
+                        success: function(cities) {
+                            $.each(cities, function(index, city) {
+                                $('#city').append(`<option value="${city.name}">${city.name}</option>`);
+                            });
+                        }
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
