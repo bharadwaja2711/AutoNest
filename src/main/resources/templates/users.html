@@ -8,27 +8,29 @@
     <meta name="viewport" 
           content="width=device-width, 
                    initial-scale=1.0">
-    <title>Autonest - Admin Panel</title>
+    <title>GeeksForGeeks</title>
     <style>
     /* Main CSS Here */
 
-	@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,800;1,600&display=swap");	
+	@import url(
+	"https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+	
 	* {
 	  margin: 0;
 	  padding: 0;
 	  box-sizing: border-box;
-	  font-family: "Montserrat", sans-serif;
+	  font-family: "Poppins", sans-serif;
 	}
 	:root {
 	  --background-color1: #fafaff;
 	  --background-color2: #ffffff;
 	  --background-color3: #ededed;
 	  --background-color4: #cad7fda4;
-	  --primary-color: #EE4B2B;
-	  --secondary-color: #EE4B2B;
-	  --Border-color: #EE4B2B;
-	  --one-use-color: #EE4B2B;
-	  --two-use-color: #EE4B2B;
+	  --primary-color: #4b49ac;
+	  --secondary-color: #0c007d;
+	  --Border-color: #3f0097;
+	  --one-use-color: #3f0097;
+	  --two-use-color: #5500cb;
 	}
 	body {
 	  background-color: var(--background-color4);
@@ -95,7 +97,7 @@
 	  align-items: center;
 	  justify-content: center;
 	  border-radius: 0px 50px 50px 0px;
-	  background-color: red;
+	  background-color: var(--secondary-color);
 	  cursor: pointer;
 	}
 	
@@ -214,14 +216,14 @@
 	}
 	
 	.option1 {
-	  border-left: 5px solid #D22B2B;
-	  background-color: #EE4B2B;
+	  border-left: 5px solid #010058af;
+	  background-color: var(--Border-color);
 	  color: white;
 	  cursor: pointer;
 	}
 	.option1:hover {
-	  border-left: 5px solid #D22B2B;
-	  background-color: #EE4B2B;
+	  border-left: 5px solid #010058af;
+	  background-color: var(--Border-color);
 	}
 	.box {
 	  height: 130px;
@@ -285,13 +287,13 @@
 	  align-items: center;
 	  justify-content: space-between;
 	  padding: 20px 20px 10px 20px;
-	  border-bottom: 2px solid #EE4B2B;
+	  border-bottom: 2px solid rgba(0, 20, 151, 0.59);
 	}
 	
 	.recent-Articles {
 	  font-size: 30px;
 	  font-weight: 600;
-	  color: #EE4B2B;
+	  color: #5500cb;
 	}
 	
 	.view {
@@ -505,7 +507,31 @@
 	    width: 180px;
 	  }
 	}
-		
+	  .users-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.users-table th, .users-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+}
+
+.users-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.users-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.users-table tr:hover {
+    background-color: #f1f1f1;
+}
+	  
 	    
     
     </style>
@@ -517,19 +543,20 @@
     <header>
 
         <div class="logosec">
-    <img src="https://res-console.cloudinary.com/dtcbrjqfs/media_explorer_thumbnails/4bc3d4e46c59f58ca727228ac5f5b3e4/detailed"
-        alt="Company Logo"
-        id="header-img"
-        style="width: 180px; height: auto;"/> <!-- Adjust the width as needed -->
-</div>
-
+            <div class="logo">GeeksForGeeks</div>
+            <img src=
+"https://media.geeksforgeeks.org/wp-content/uploads/20221210182541/Untitled-design-(30).png"
+                class="icn menuicn" 
+                id="menuicn" 
+                alt="menu-icon">
+        </div>
 
         <div class="searchbar">
             <input type="text" 
                    placeholder="Search">
             <div class="searchbtn">
               <img src=
-"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTo33UGFSv_2r0t4F7jyfK0jTjda773JR4eqA&s"
+"https://media.geeksforgeeks.org/wp-content/uploads/20221210180758/Untitled-design-(28).png"
                     class="icn srchicn" 
                     alt="search-icon">
               </div>
@@ -555,17 +582,18 @@
         <div class="navcontainer">
             <nav class="nav">
                 <div class="nav-upper-options">
-                    <div class="nav-option option1">
-                        <img
-    src="https://cdn-icons-png.freepik.com/512/9837/9837924.png"
-    class="nav-img"
-    alt="dashboard"
-    style="width: 38px; height: auto;"/>
+                <a href="/admin-page">
+                    <div class="option2 nav-option">
+                        <img src=
+"https://media.geeksforgeeks.org/wp-content/uploads/20221210182148/Untitled-design-(29).png"
+                            class="nav-img" 
+                            alt="dashboard">
                         <h3> Dashboard</h3>
                     </div>
-
+                </a>
+                    
                     <a href="/users">
-					    <div class="option2 nav-option">
+					    <div class="nav-option option1">
 					        <img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210183322/9.png"
 					            class="nav-img" 
 					            alt="articles">
@@ -635,99 +663,122 @@
 
             <div class="box-container">
 
-                
-            </div>
-
-            <div class="report-container">
-                <div class="report-header">
-                    <h1 class="recent-Articles">Admin Dashboard</h1>
-                </div>
-
-                <div class="report-body">
-                    <div class="report-topic-heading">
-                        <h3 class="t-op">Article</h3>
-                        <h3 class="t-op">Views</h3>
-                        <h3 class="t-op">Comments</h3>
-                        <h3 class="t-op">Status</h3>
+                <div class="box box1">
+                    <div class="text">
+                        <h2 class="topic-heading">60.5k</h2>
+                        <h2 class="topic">Article Views</h2>
                     </div>
 
-                    <div class="items">
-                        <div class="item1">
-                            <h3 class="t-op-nextlvl">Article 73</h3>
-                            <h3 class="t-op-nextlvl">2.9k</h3>
-                            <h3 class="t-op-nextlvl">210</h3>
-                            <h3 class="t-op-nextlvl label-tag">Published</h3>
-                        </div>
+                    <img src=
+"https://media.geeksforgeeks.org/wp-content/uploads/20221210184645/Untitled-design-(31).png"
+                        alt="Views">
+                </div>
 
-                        <div class="item1">
-                            <h3 class="t-op-nextlvl">Article 72</h3>
-                            <h3 class="t-op-nextlvl">1.5k</h3>
-                            <h3 class="t-op-nextlvl">360</h3>
-                            <h3 class="t-op-nextlvl label-tag">Published</h3>
-                        </div>
-
-                        <div class="item1">
-                            <h3 class="t-op-nextlvl">Article 71</h3>
-                            <h3 class="t-op-nextlvl">1.1k</h3>
-                            <h3 class="t-op-nextlvl">150</h3>
-                            <h3 class="t-op-nextlvl label-tag">Published</h3>
-                        </div>
-
-                        <div class="item1">
-                            <h3 class="t-op-nextlvl">Article 70</h3>
-                            <h3 class="t-op-nextlvl">1.2k</h3>
-                            <h3 class="t-op-nextlvl">420</h3>
-                            <h3 class="t-op-nextlvl label-tag">Published</h3>
-                        </div>
-
-                        <div class="item1">
-                            <h3 class="t-op-nextlvl">Article 69</h3>
-                            <h3 class="t-op-nextlvl">2.6k</h3>
-                            <h3 class="t-op-nextlvl">190</h3>
-                            <h3 class="t-op-nextlvl label-tag">Published</h3>
-                        </div>
-
-                        <div class="item1">
-                            <h3 class="t-op-nextlvl">Article 68</h3>
-                            <h3 class="t-op-nextlvl">1.9k</h3>
-                            <h3 class="t-op-nextlvl">390</h3>
-                            <h3 class="t-op-nextlvl label-tag">Published</h3>
-                        </div>
-
-                        <div class="item1">
-                            <h3 class="t-op-nextlvl">Article 67</h3>
-                            <h3 class="t-op-nextlvl">1.2k</h3>
-                            <h3 class="t-op-nextlvl">580</h3>
-                            <h3 class="t-op-nextlvl label-tag">Published</h3>
-                        </div>
-
-                        <div class="item1">
-                            <h3 class="t-op-nextlvl">Article 66</h3>
-                            <h3 class="t-op-nextlvl">3.6k</h3>
-                            <h3 class="t-op-nextlvl">160</h3>
-                            <h3 class="t-op-nextlvl label-tag">Published</h3>
-                        </div>
-
-                        <div class="item1">
-                            <h3 class="t-op-nextlvl">Article 65</h3>
-                            <h3 class="t-op-nextlvl">1.3k</h3>
-                            <h3 class="t-op-nextlvl">220</h3>
-                            <h3 class="t-op-nextlvl label-tag">Published</h3>
-                        </div>
-
+                <div class="box box2">
+                    <div class="text">
+                        <h2 class="topic-heading">150</h2>
+                        <h2 class="topic">Likes</h2>
                     </div>
+
+                    <img src=
+"https://media.geeksforgeeks.org/wp-content/uploads/20221210185030/14.png" 
+                         alt="likes">
+                </div>
+
+                <div class="box box3">
+                    <div class="text">
+                        <h2 class="topic-heading">320</h2>
+                        <h2 class="topic">Comments</h2>
+                    </div>
+
+                    <img src=
+"https://media.geeksforgeeks.org/wp-content/uploads/20221210184645/Untitled-design-(32).png"
+                        alt="comments">
+                </div>
+
+                <div class="box box4">
+                    <div class="text">
+                        <h2 class="topic-heading">70</h2>
+                        <h2 class="topic">Published</h2>
+                    </div>
+
+                    <img src=
+"https://media.geeksforgeeks.org/wp-content/uploads/20221210185029/13.png" alt="published">
                 </div>
             </div>
+			<div class="report-container">
+    <div class="report-header">
+        <h1 class="recent-Articles">Users List</h1>
+        <button class="view">View All</button>
+    </div>
+
+    <div class="report-body">
+        <table class="users-table">
+            <thead>
+                <tr>
+                    <th class="t-op">Given name</th>
+                    <th class="t-op">Email ID</th>
+                    <th class="t-op">Date of birth</th>
+                    <th class="t-op">Gender</th>
+                    <th class="t-op">Mobile no</th>
+                    <th class="t-op">Role</th>
+                    <th class="t-op">Country</th>
+                    <th class="t-op">City</th>
+                </tr>
+            </thead>
+            <tbody id="userTableBody">
+                <!-- User data will be inserted here dynamically -->
+            </tbody>
+        </table>
+    </div>
+</div>
+			
+            
         </div>
     </div>
 
-    <script src="./index.js">
+    <script>
     let menuicn = document.querySelector(".menuicn");
     let nav = document.querySelector(".navcontainer");
 
     menuicn.addEventListener("click", () => {
         nav.classList.toggle("navclose");
     })
+    
+    document.addEventListener('DOMContentLoaded', function() {
+    fetchUsers();
+	});
+	
+	function fetchUsers() {
+	    fetch('http://localhost:8080/api/users')
+	        .then(response => response.json())
+	        .then(data => {
+	            console.log(data); // Log the data to the console
+	            populateUserTable(data); // Call the function to populate the table
+	        })
+	        .catch(error => console.error('Error fetching users:', error));
+	}
+	
+	function populateUserTable(users) {
+	    const userTableBody = document.getElementById('userTableBody');
+	    userTableBody.innerHTML = ''; // Clear existing rows if any
+	
+	    users.forEach(user => {
+	        const row = document.createElement('tr');
+	        row.innerHTML = `
+	            <td>${user.givenname}</td>
+	            <td>${user.email}</td>
+	            <td>${user.dob}</td>
+	            <td>${user.gender}</td>
+	            <td>${user.mobno}</td>
+	            <td>${user.role ? user.role : 'N/A'}</td>
+	            <td>${user.country}</td>
+	            <td>${user.city}</td>
+	        `;
+	        userTableBody.appendChild(row); // Append the row to the table body
+	    });
+	}
+	
 
     </script>
 </body>
