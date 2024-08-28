@@ -72,4 +72,10 @@ public class UserController {
         List<User> users = userService.getAllUsers();
         return ResponseEntity.ok(users);
     }
+    
+    @GetMapping("/admin-page/usermanagement")
+    public String userManagement() {
+        return "usermanagement";
+    }
+ 
 }
