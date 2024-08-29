@@ -10,4 +10,7 @@ public interface UserService {
 	User save (UserDto userDto);
 	
 	List<User> getAllUsers();
+	
+	User updateUserRole(Long userId, String role);
+
 }

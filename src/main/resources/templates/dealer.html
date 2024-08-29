@@ -133,10 +133,8 @@
 
         /* Dashboard Sections */
         .dashboard {
-            display: flex;
-            justify-content: center; /* Center the cards horizontally */
-            align-items: center; /* Center the cards vertically */
-            flex-wrap: wrap; /* Allow cards to wrap to the next line */
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 20px;
             margin-top: 20px;
         }
@@ -146,9 +144,7 @@
             border-radius: 10px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             padding: 20px;
-            width: 200px; /* Set a fixed width for the cards */
             transition: transform 0.3s ease;
-            text-align: center; /* Center align text in cards */
         }
 
         .card:hover {
@@ -216,7 +212,7 @@
     <!-- Navbar -->
     <nav class="navbar">
         <div class="logo">
-        	<a href="http://localhost:8080/admin-page" class="logo">
+        	<a href="http://localhost:8080/dealer-page" class="logo">
             	<img src="https://res-console.cloudinary.com/dtcbrjqfs/media_explorer_thumbnails/4bc3d4e46c59f58ca727228ac5f5b3e4/detailed" alt="Company Logo" id="header-img" />
         	</a>
         </div>
@@ -226,69 +222,21 @@
     <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
         <div class="logo">
-        	<a href="http://localhost:8080/admin-page" class="logo">
+        	<a href="http://localhost:8080/dealer-page" class="logo">
             	<img src="https://res-console.cloudinary.com/dtcbrjqfs/media_explorer_thumbnails/4bc3d4e46c59f58ca727228ac5f5b3e4/detailed" alt="Company Logo" id="header-img" />
         	</a>
         </div>
-        <a th:href="@{/admin-page/usermanagement}">Users</a> <!-- User Management link -->
-    	<a th:href="@{/admin-page/vehiclemanagement}">Vehicles</a>
-    	<a th:href="@{/admin-page/forummanagement}">Forums</a>
-    	<a th:href="@{/admin-page/orders}">Orders</a>
-    	<a th:href="@{/admin-page/profile}">Profile</a>
+        <a th:href="@{/dealer-page/usermanagement}">User Management</a> <!-- User Management link -->
+    	<a th:href="@{/dealer-page/vehiclemanagement}">Vehicle Management</a>
+    	<a th:href="@{/dealer-page/orders}">Orders</a>
+    	<a th:href="@{/dealer-page/forummanagement}">Forum Management</a>
+    	<a th:href="@{/dealer-page/profile}">Forum Management</a>
         <a th:href="@{/logout}">Logout</a>
     </div>
 
     <!-- Main Content -->
     <div class="main-content" id="main-content">
-        <div class="dashboard">
-            <!-- Summary Stats -->
-            <div class="card">
-                <h2>Total Users</h2>
-                <p><span id="totalUsersDisplay">0</span></p>
-            </div>
-            <div class="card">
-                <h2>Total Vehicles</h2>
-                <p>350</p>
-            </div>
-            <div class="card">
-                <h2>Total Orders</h2>
-                <p>750</p>
-            </div>
-            <div class="card">
-                <h2>Total Revenue</h2>
-                <p>$120,000</p>
-            </div>
-        </div>
-
-        <!-- Recent Activity -->
-        <div class="recent-activity">
-            <h3>Recent Activity</h3>
-            <div class="activity-item">
-                <span>User JohnDoe logged in</span>
-                <span class="activity-time">10 minutes ago</span>
-            </div>
-            <div class="activity-item">
-                <span>User JaneDoe registered</span>
-                <span class="activity-time">30 minutes ago</span>
-            </div>
-            <div class="activity-item">
-                <span>User MikeSmith created an order</span>
-                <span class="activity-time">1 hour ago</span>
-            </div>
-        </div>
-
-        <!-- Notifications -->
-        <div class="notifications">
-            <h3>Notifications</h3>
-            <div class="notification-item">
-                <span>New vehicle added: Toyota Land Cruiser</span>
-                <span class="notification-time">2 hours ago</span>
-            </div>
-            <div class="notification-item">
-                <span>New order placed: Order #12345</span>
-                <span class="notification-time">3 hours ago</span>
-            </div>
-        </div>
+        Welcome to Delaer Page...
     </div>
 
     <script>
@@ -297,17 +245,6 @@
             sidebar.classList.toggle('sidebar-open');
             document.getElementById('main-content').classList.toggle('sidebar-open');
         }
-        
-        document.addEventListener('DOMContentLoaded', function() {
-            const totalUsersCount = localStorage.getItem('totalUsersCount');
-            
-            if (totalUsersCount) {
-                // Example: Displaying the count in a specific element
-                document.getElementById('totalUsersDisplay').textContent = totalUsersCount;
-            }
-        });
-
-
     </script>
 </body>
 

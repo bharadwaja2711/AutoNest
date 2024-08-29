@@ -21,7 +21,7 @@ public class User {
 
     private String email;
     private String password;
-    private String role;
+    private String role = "CUSTOMER"; // Default value set to "customer"
     private String surname;
     private String givenname;
     private LocalDate dob; // Updated to LocalDate
@@ -40,7 +40,7 @@ public class User {
                 String mobno, String gender, String city, String state, String country, String pincode) {
         this.email = email;
         this.password = password;
-        this.role = role;
+        this.role = role != null ? role : "CUSTOMER"; // If role is not provided, default to "customer"
         this.surname = surname;
         this.givenname = givenname;
         this.dob = dob;

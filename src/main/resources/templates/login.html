@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AutoNest - Login</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -54,39 +56,26 @@
             box-sizing: border-box;
         }
 
-        .message {
-            margin-bottom: 15px;
-            color: red;
-            font-weight: bold;
-            text-align: center;
-        }
-
         input[type="submit"] {
             width: 100%;
             padding: 12px;
-            background-color: red;;
+            background-color: red;
             border: none;
             border-radius: 5px;
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
             margin-top: 15px;
+            color: white;
         }
 
         input[type="submit"]:hover {
-            background-color: red;
+            background-color: darkred;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="message" th:if="${param.error}">
-           Invalid Username or Password
-        </div>
-        <div class="message" th:if="${param.logout}">
-           Logout Successfully
-        </div>
-        
         <h2>Sign in</h2>
         <form th:action="@{/login}" method="post">
             <div class="form-group">
@@ -97,9 +86,63 @@
                 <label for="password">Password:</label>
                 <input type="password" id="password" name="password" placeholder="Enter your password" required>
             </div>
-            <input type="submit" value="Login" style="color: white;">
-
+            <input type="submit" value="Login">
+            <p align="center">Don't have an account? <a href="/registration">Register</a></p>
         </form>
     </div>
+
+    <script>
+        // Toast notification for successful logout
+        if (window.location.search.includes('logout')) {
+            Toastify({
+                text: "Logout Successfully",
+                duration: 4000,
+                close: true,
+                gravity: "top",
+                position: "right",
+                backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+                className: "custom-toast",
+                stopOnFocus: true,
+                offset: {
+                    x: 20,
+                    y: 20
+                },
+                style: {
+                    boxShadow: "0px 5px 10px rgba(0, 0, 0, 0.2)",
+                    borderRadius: "8px",
+                    padding: "15px 20px",
+                    fontSize: "16px",
+                    color: "#ffffff",
+                    fontWeight: "600"
+                }
+            }).showToast();
+        }
+
+        // Toast notification for invalid username or password
+        if (window.location.search.includes('error')) {
+            Toastify({
+                text: "Invalid Username or Password",
+                duration: 4000,
+                close: true,
+                gravity: "top",
+                position: "right",
+                backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
+                className: "custom-toast",
+                stopOnFocus: true,
+                offset: {
+                    x: 20,
+                    y: 20
+                },
+                style: {
+                    boxShadow: "0px 5px 10px rgba(0, 0, 0, 0.2)",
+                    borderRadius: "8px",
+                    padding: "15px 20px",
+                    fontSize: "16px",
+                    color: "#ffffff",
+                    fontWeight: "600"
+                }
+            }).showToast();
+        }
+    </script>
 </body>
 </html>
