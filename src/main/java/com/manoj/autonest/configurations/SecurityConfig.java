@@ -38,7 +38,7 @@ public class SecurityConfig {
                 .requestMatchers("/admin-page/**").hasAuthority("ADMIN")
                 .requestMatchers("/user-page/**").hasAuthority("USER")
                 .requestMatchers("/dealer-page/**").hasAuthority("DEALER")
-                .requestMatchers("/registration", "./assets/images/**", "/").permitAll()
+                .requestMatchers("/registration", "./assets/images/**", "/", "/profile", "/profile/update").permitAll()
                 .anyRequest().authenticated())
             .formLogin(form -> form
                 .loginPage("/login")

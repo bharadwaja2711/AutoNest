@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
@@ -86,13 +87,28 @@ public class UserController {
             return ResponseEntity.notFound().build(); // Return 404 if user not found
         }
     }
+    
+    @GetMapping("/profile")
+    public String userProfile(@AuthenticationPrincipal UserDetails userDetails, Model model) {
+        // Fetching the email of the logged-in user from the UserDetails object
+        String email = userDetails.getUsername();
 
+        // Retrieving the user by email
+        User user = userService.findByEmail(email);
+        
+        if (user != null) {
+            model.addAttribute("user", user);
+        }
+
+        return "profile"; // This corresponds to the profile.html template
+    }
     
     
     
     
     
-    // Dealer Routes
+    
+    // **************Dealer Routes***************
     @GetMapping("/dealer-page")
     public String dealerPage() {
     	return "dealer";
@@ -100,11 +116,59 @@ public class UserController {
     
     
     
-    // User Routes
+    //**************User Routes******************
     @GetMapping("/user-page")
     public String userPage(Model model, Principal principal) {
     	UserDetails userDetails = userDetailsService.loadUserByUsername(principal.getName());
     	model.addAttribute("user", userDetails);
     	return "user";
+    }
+    
+    //*************Global routes*********************
+    @PatchMapping("/profile/update")
+    public ResponseEntity<Map<String, String>> updateProfile(@AuthenticationPrincipal UserDetails userDetails,
+                                                             @RequestBody Map<String, String> updates) {
+        // Get the email of the logged-in user
+        String email = userDetails.getUsername();
+        User user = userService.findByEmail(email);
+
+        if (user == null) {
+            return ResponseEntity.badRequest().body(Map.of("status", "failure", "message", "User not found"));
+        }
+
+        // Update the user's profile based on the fields provided in the request body
+        updates.forEach((field, value) -> {
+            switch (field) {
+                case "email":
+                    user.setEmail(value);
+                    break;
+                case "mobno":
+                    user.setMobno(value);
+                    break;
+                case "gender":
+                    user.setGender(value);
+                    break;
+                case "city":
+                    user.setCity(value);
+                    break;
+                case "state":
+                    user.setState(value);
+                    break;
+                case "country":
+                    user.setCountry(value);
+                    break;
+                case "pincode":
+                    user.setPincode(value);
+                    break;
+                default:
+                    break;
+            }
+        });
+
+        // Save the updated user
+        userService.save(user);
+
+        // Return success response
+        return ResponseEntity.ok(Map.of("status", "success", "message", "Profile updated successfully"));
     }
 }

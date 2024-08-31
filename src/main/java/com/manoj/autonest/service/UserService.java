@@ -12,5 +12,9 @@ public interface UserService {
 	List<User> getAllUsers();
 	
 	User updateUserRole(Long userId, String role);
+	
+	User findByEmail(String email);
+	
+	User save(User user);
 
 }
