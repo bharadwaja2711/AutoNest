@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <title>Add New Car Details</title>
+    <style>
+        .form-group {
+            margin: 30px auto;
+            width: 50%;
+            background-color: #f9f9f9;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        }
+        .controls {
+            margin-bottom: 20px;
+        }
+        .floatLabel {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        label {
+            font-weight: bold;
+            margin-top: 5px;
+        }
+        button.btn-primary {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button.btn-primary:hover {
+            background-color: #0056b3;
+        }
+        .form-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+        .slideshow-container {
+            position: relative;
+            max-width: 100%;
+            margin: auto;
+            display: none; /* Hide initially */
+        }
+        .mySlides {
+            display: none;
+        }
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            width: auto;
+            padding: 16px;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            transition: 0.6s ease;
+            border-radius: 0 3px 3px 0;
+            user-select: none;
+        }
+        .next {
+            right: 0;
+            border-radius: 3px 0 0 3px;
+        }
+        .prev:hover, .next:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+    </style>
+</head>
+<body>
+
+<!-- Car Addition Form -->
+<form th:action="@{/admin-page/vehiclemanagement/update/{id}(id=${car.id})}" th:object="${car}" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <center><h1><u class="thick">Update Car Details</u></h1></center>
+        <br /><br /><br />
+
+        <!-- Image at the top -->
+        <div class="form-image">
+            <center><img src="https://res.cloudinary.com/dtcbrjqfs/image/upload/v1724085104/tkymkigtu1enwdwqulbd.png" alt="Car Image" class="img-responsive" /></center>
+            <br />
+        </div>
+		
+		
+        <!-- Manufacturer -->
+        <div class="controls">
+            <input type="text" id="manufacture" class="floatLabel" name="manufacturer" th:field="*{manufacturer}" required>
+            <label for="manufacture">Manufacturer</label>
+        </div>
+
+        <!-- Model -->
+        <div class="controls">
+            <input type="text" id="model" class="floatLabel" name="model" th:field="*{model}" required>
+            <label for="model">Model</label>
+        </div>
+
+        <!-- Price -->
+        <div class="controls">
+            <input type="number" id="price" class="floatLabel" name="price" th:field="*{price}" required>
+            <label for="price">Price (₹)</label>
+        </div>
+
+        <!-- Fuel Type -->
+        <div class="controls">
+            <select id="fuel-type" class="floatLabel" name="fuelType" th:field="*{fuelType}" required>
+                <option value="" disabled selected>Select Fuel Type</option>
+                <option value="petrol">Petrol</option>
+                <option value="diesel">Diesel</option>
+                <option value="electric">Electric</option>
+                <option value="hybrid">Hybrid</option>
+            </select>
+            <label for="fuel-type">Fuel Type</label>
+        </div>
+
+        <!-- Kilometers Driven -->
+        <div class="controls">
+            <input type="number" id="kilometer" class="floatLabel" name="kilometersDriven" th:field="*{kilometersDriven}" required>
+            <label for="kilometer">Kilometers Driven</label>
+        </div>
+
+        <!-- City -->
+        <div class="controls">
+            <input type="text" id="city" class="floatLabel" name="city" th:field="*{city}" required>
+            <label for="city">City</label>
+        </div>
+
+        <!-- Year of Purchase -->
+        <div class="controls">
+            <input type="number" id="year" class="floatLabel" name="yearOfPurchase" th:field="*{yearOfPurchase}" required min="1900" max="2024">
+            <label for="year">Year of Purchase</label>
+        </div>
+
+        <!-- Transmission -->
+        <div class="controls">
+            <select id="transmission" class="floatLabel" name="transmission" th:field="*{transmission}" required>
+                <option value="" disabled selected>Select Transmission</option>
+                <option value="manual">Manual</option>
+                <option value="automatic">Automatic</option>
+            </select>
+            <label for="transmission">Transmission</label>
+        </div>
+
+        <!-- Body Type -->
+        <div class="controls">
+            <input type="text" id="body-type" class="floatLabel" name="bodyType" th:field="*{bodyType}" required>
+            <label for="body-type">Body Type</label>
+        </div>
+
+        <!-- Number of Owners -->
+        <div class="controls">
+            <input type="number" id="owners" class="floatLabel" name="numberOfOwners" th:field="*{numberOfOwners}" required>
+            <label for="owners">Number of Owners</label>
+        </div>
+
+        <!-- Colour -->
+        <div class="controls">
+            <input type="text" id="colour" class="floatLabel" name="color" th:field="*{color}" required>
+            <label for="colour">Colour</label>
+        </div>
+
+        <!-- Media Upload -->
+        <div class="controls">
+            <input type="file" id="media" class="floatLabel" name="media" accept="image/*" required>
+            <label for="media">Upload Media (Image)</label>
+        </div>
+        <div>
+            <h3>Current Image:</h3>
+            <img th:src="@{/cars/{id}/image(id=${car.id})}" alt="Car Image" width="200px">
+        </div>
+        <br /> <br /> <br />
+
+        <!-- Submit Button -->
+        <div class="controls">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+        
+        <div class="controls">
+			<a href="/admin-page/vehiclemanagement">Back</a>
+		</div>
+    </div>
+</form>
+
+</body>
+</html>

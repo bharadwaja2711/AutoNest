@@ -1,10 +1,15 @@
 package com.manoj.autonest.controller;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,10 +22,15 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.manoj.autonest.dto.UserDto;
+import com.manoj.autonest.model.Car;
 import com.manoj.autonest.model.User;
 import com.manoj.autonest.service.UserService;
+
+import jakarta.persistence.criteria.Path;
 
 @Controller
 public class UserController {
@@ -103,7 +113,10 @@ public class UserController {
         return "profile"; // This corresponds to the profile.html template
     }
     
-    
+    @GetMapping("/admin-page/vehiclemanagement")
+    public String vehicleManagement() {
+        return "vehiclemanagement";
+    }
     
     
     
