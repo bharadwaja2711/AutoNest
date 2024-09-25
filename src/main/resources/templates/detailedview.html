@@ -7,6 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <style>
         body {
             font-family: "Poppins", sans-serif;
@@ -220,7 +221,7 @@
                 <p class="kilometers-driven" id="kilometers-driven"></p>
                 <p class="owners" id="owners"></p>
                 <p class="transmission" id="transmission"></p>
-                <button class="btn-update">Contact Dealer</button>
+                <button id="payButton" onClick="CreateOrderId()" class="btn-update">Order Now</button>
             </div>
         </div>
     </div>
@@ -258,6 +259,53 @@
             sidebar.classList.toggle('sidebar-open');
             document.querySelector('.main-content').classList.toggle('sidebar-open');
         }
+        
+        function CreateOrderId() {
+            // Fetch the car ID from the URL
+            const carId = window.location.pathname.split("/").pop();
+
+            // Make an API call to your backend to create an order
+            fetch(`/api/create-order/${carId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then(response => response.json())
+            .then(orderData => {
+                // Initialize Razorpay payment
+                const options = {
+                    key: 'rzp_test_cmrkOmlYz5q6KG', // Your Razorpay API key
+                    amount: orderData.amount, // Amount in paise (i.e., ₹100 = 10000)
+                    currency: orderData.currency, // Currency code
+                    name: 'AutoNest',
+                    description: 'Order for car: ' + document.getElementById('car-name').textContent,
+                    image: 'https://yourdomain.com/logo.png', // Optional logo image
+                    order_id: orderData.id, // Use the ID returned by your backend
+                    handler: function (response) {
+                        // Handle successful payment here
+                        alert('Payment successful! Payment ID: ' + response.razorpay_payment_id);
+                        // Optionally, send this info to your backend for order confirmation
+                    },
+                    prefill: {
+                        name: '',
+                        email: '',
+                        contact: ''
+                    },
+                    notes: {
+                        address: ''
+                    },
+                    theme: {
+                        color: '#b71c1c'
+                    }
+                };
+
+                const razorpay = new Razorpay(options);
+                razorpay.open();
+            })
+            .catch(error => console.error('Error creating order:', error));
+        }
+
     </script>
 </body>
 </html>
