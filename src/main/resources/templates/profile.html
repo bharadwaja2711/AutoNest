@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
+    <title>Autonest - Profile</title>
 	    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 	    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 		<script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
@@ -324,7 +324,7 @@
     <nav class="navbar">
         <div class="logo">
         	<a href="http://localhost:8080/admin-page" class="logo">
-            	<img src="https://res-console.cloudinary.com/dtcbrjqfs/media_explorer_thumbnails/4bc3d4e46c59f58ca727228ac5f5b3e4/detailed" alt="Company Logo" id="header-img" />
+            	<img src="https://res.cloudinary.com/dtcbrjqfs/image/upload/v1724085104/tkymkigtu1enwdwqulbd.png" alt="Company Logo" id="header-img" />
         	</a>
         </div>
         <div class="hamburger" onclick="toggleSidebar()">&#9776;</div>
@@ -337,8 +337,9 @@
             	<img src="https://res-console.cloudinary.com/dtcbrjqfs/media_explorer_thumbnails/4bc3d4e46c59f58ca727228ac5f5b3e4/detailed" alt="Company Logo" id="header-img" />
         	</a>
         </div>
-        <a th:href="@{/admin-page/usermanagement}">Users</a> <!-- User Management link -->
-    	<a th:href="@{/admin-page/vehiclemanagement}">Vehicles</a>
+        <a th:href="@{/admin-page/usermanagement}">Manage Users</a> <!-- User Management link -->
+    	<a th:href="@{/admin-page/vehiclemanagement}">Manage Cars</a>
+    	<a th:href="@{/admin-page/viewcars}">View Cars</a>
     	<a th:href="@{/admin-page/forummanagement}">Forums</a>
     	<a th:href="@{/admin-page/orders}">Orders</a>
     	<a th:href="@{/profile}">Profile</a>

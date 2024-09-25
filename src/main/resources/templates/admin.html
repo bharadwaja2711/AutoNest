@@ -14,38 +14,35 @@
             background-color: #f4f4f4;
         }
 
-        /* Custom Scrollbar Styles */
         ::-webkit-scrollbar {
-            width: 12px; /* Width of the scrollbar */
-            height: 12px; /* Height of the scrollbar (for horizontal scrollbar) */
+            width: 12px;
+            height: 12px;
         }
 
         ::-webkit-scrollbar-thumb {
-            background: linear-gradient(135deg, #b71c1c, #a50000); /* Gradient for the scrollbar thumb */
-            border-radius: 10px; /* Rounded corners */
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
-            transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition for hover effect */
+            background: linear-gradient(135deg, #b71c1c, #a50000);
+            border-radius: 10px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease, transform 0.3s ease;
         }
 
         ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(135deg, #a50000, #8e0000); /* Darker gradient on hover */
-            transform: scale(1.1); /* Slightly enlarge on hover */
+            background: linear-gradient(135deg, #a50000, #8e0000);
+            transform: scale(1.1);
         }
 
         ::-webkit-scrollbar-track {
-            background: #f4f4f4; /* Color of the scrollbar track */
-            border-radius: 10px; /* Rounded corners */
+            background: #f4f4f4;
+            border-radius: 10px;
         }
 
-        /* For Firefox */
         .main-content,
         .sidebar {
-            overflow-y: auto; /* Enable vertical scrolling */
-            scrollbar-width: thin; /* For Firefox */
-            scrollbar-color: #b71c1c #f4f4f4; /* For Firefox (thumb color and track color) */
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: #b71c1c #f4f4f4;
         }
 
-        /* Navbar */
         .navbar {
             background-color: white;
             padding: 1rem;
@@ -55,31 +52,25 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
-        .navbar .logo {
-            display: flex;
-            align-items: center;
-        }
-
-        .navbar img {
-            height: 40px; /* Set height for the logo image */
-            margin-right: 10px; /* Space between logo and text (if any) */
+        .navbar .logo img {
+            height: 40px;
+            margin-right: 10px;
         }
 
         .hamburger {
             font-size: 1.5rem;
             cursor: pointer;
-            color: #b71c1c; /* Red color for the hamburger icon */
+            color: #b71c1c;
             transition: transform 0.2s ease, background-color 0.2s ease;
             padding: 0.5rem;
             border-radius: 5px;
         }
 
         .hamburger:hover {
-            background-color: #f4f4f4; /* Light background on hover */
-            transform: scale(1.1); /* Slightly larger on hover */
+            background-color: #f4f4f4;
+            transform: scale(1.1);
         }
 
-        /* Sidebar */
         .sidebar {
             position: fixed;
             top: 0;
@@ -91,17 +82,7 @@
             padding-top: 2rem;
             transition: left 0.3s ease;
             z-index: 1000;
-            border-right: 2px solid #b71c1c; /* Red border on the right */
-        }
-
-        .sidebar .logo {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 2rem;
-        }
-
-        .sidebar img {
-            height: 40px; /* Set height for the logo image */
+            border-right: 2px solid #b71c1c;
         }
 
         .sidebar a {
@@ -116,27 +97,37 @@
 
         .sidebar a:hover {
             background-color: #f4f4f4;
-            color: #b71c1c; /* Red color for hover state */
+            color: #b71c1c;
         }
 
-        /* Sidebar Open */
         .sidebar-open {
             left: 0;
         }
+        
+        .sidebar .logo {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
 
-        /* Main Content */
+.sidebar .logo img {
+    max-width: 80%; /* Adjust this percentage to decrease/increase size */
+    height: auto;   /* Maintains aspect ratio */
+}
+
+        
+
         .main-content {
             padding: 20px;
             margin-left: 0;
             transition: margin-left 0.3s ease;
         }
 
-        /* Dashboard Sections */
         .dashboard {
             display: flex;
-            justify-content: center; /* Center the cards horizontally */
-            align-items: center; /* Center the cards vertically */
-            flex-wrap: wrap; /* Allow cards to wrap to the next line */
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
             gap: 20px;
             margin-top: 20px;
         }
@@ -146,9 +137,9 @@
             border-radius: 10px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             padding: 20px;
-            width: 200px; /* Set a fixed width for the cards */
+            width: 200px;
             transition: transform 0.3s ease;
-            text-align: center; /* Center align text in cards */
+            text-align: center;
         }
 
         .card:hover {
@@ -162,7 +153,7 @@
         }
 
         .card p {
-            font-size: 2rem;
+            font-size: 1.5rem;
             margin: 0;
             font-weight: 420;
             color: #333;
@@ -171,6 +162,7 @@
         .recent-activity,
         .notifications {
             margin-top: 20px;
+            margin-bottom: 20px;
             padding: 20px;
             border-radius: 10px;
             background-color: white;
@@ -183,7 +175,29 @@
             color: #b71c1c;
         }
 
-        .activity-item,
+        .activity-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+
+        .activity-user {
+            font-weight: 600;
+            font-size: 1rem;
+            color: #333;
+        }
+
+        .activity-status {
+            font-size: 0.9rem;
+            color: #777;
+        }
+
         .notification-item {
             padding: 10px 0;
             border-bottom: 1px solid #e0e0e0;
@@ -192,18 +206,15 @@
             align-items: center;
         }
 
-        .activity-item:last-child,
         .notification-item:last-child {
             border-bottom: none;
         }
 
-        .activity-time,
         .notification-time {
             font-size: 0.9rem;
             color: #777;
         }
 
-        /* Responsive Design */
         @media (min-width: 769px) {
             .sidebar-open ~ .main-content {
                 margin-left: 250px;
@@ -230,9 +241,10 @@
             	<img src="https://res.cloudinary.com/dtcbrjqfs/image/upload/v1724085104/tkymkigtu1enwdwqulbd.png" alt="Company Logo" id="header-img" />
         	</a>
         </div>
-        <a th:href="@{/admin-page/usermanagement}">User Management</a> <!-- User Management link -->
-    	<a th:href="@{/admin-page/vehiclemanagement}">Vehicle Management</a>
-    	<a th:href="@{/admin-page/forummanagement}">Forum Management</a>
+        <a th:href="@{/admin-page/usermanagement}">Manage Users</a> <!-- User Management link -->
+    	<a th:href="@{/admin-page/vehiclemanagement}">Manage Cars</a>
+    	<a th:href="@{/admin-page/viewcars}">View Cars</a>
+    	<a th:href="@{/admin-page/forummanagement}">Forums</a>
     	<a th:href="@{/admin-page/orders}">Orders</a>
     	<a th:href="@{/profile}">Profile</a>
         <a th:href="@{/logout}">Logout</a>
@@ -247,48 +259,35 @@
                 <p><span id="totalUsersDisplay">0</span></p>
             </div>
             <div class="card">
-                <h2>Total Vehicles</h2>
-                <p>350</p>
-            </div>
-            <div class="card">
-                <h2>Total Orders</h2>
-                <p>750</p>
-            </div>
-            <div class="card">
-                <h2>Total Revenue</h2>
-                <p>$120,000</p>
-            </div>
+		        <h2>Total Vehicles</h2>
+		        <p><span id="totalCarsDisplay">0</span></p> <!-- Total Cars Display -->
+		    </div>
+		    <div class="card">
+		        <h2>Total Orders</h2>
+		        <p>750</p>
+		    </div>
+		    <div class="card">
+		        <h2>Net Worth</h2>
+		        <p><span id="netWorthDisplay">0</span></p> <!-- Net Worth Display -->
+		    </div>
         </div>
 
         <!-- Recent Activity -->
-        <div class="recent-activity">
-            <h3>Recent Activity</h3>
-            <div class="activity-item">
-                <span>User JohnDoe logged in</span>
-                <span class="activity-time">10 minutes ago</span>
-            </div>
-            <div class="activity-item">
-                <span>User JaneDoe registered</span>
-                <span class="activity-time">30 minutes ago</span>
-            </div>
-            <div class="activity-item">
-                <span>User MikeSmith created an order</span>
-                <span class="activity-time">1 hour ago</span>
-            </div>
-        </div>
+		<div class="recent-activity">
+		    <h3>Recent Activity</h3>
+		    <div id="recentActivities">
+		        <!-- Dynamic activity items will be added here -->
+		    </div>
+		</div>
 
         <!-- Notifications -->
-        <div class="notifications">
-            <h3>Notifications</h3>
-            <div class="notification-item">
-                <span>New vehicle added: Toyota Land Cruiser</span>
-                <span class="notification-time">2 hours ago</span>
-            </div>
-            <div class="notification-item">
-                <span>New order placed: Order #12345</span>
-                <span class="notification-time">3 hours ago</span>
-            </div>
-        </div>
+<div class="notifications">
+    <h3>Notifications</h3>
+    <div id="notification-container">
+        <!-- Notifications will be dynamically injected here -->
+    </div>
+</div>
+
     </div>
 
     <script>
@@ -306,6 +305,101 @@
                 document.getElementById('totalUsersDisplay').textContent = totalUsersCount;
             }
         });
+        
+        document.addEventListener("DOMContentLoaded", function() {
+            const totalCarsCount = localStorage.getItem('totalCarsCount');
+            const netWorth = localStorage.getItem('netWorth');
+
+            // Display the counts in the appropriate spans
+            document.getElementById('totalCarsDisplay').textContent = totalCarsCount || 0; // Default to 0 if not found
+            document.getElementById('netWorthDisplay').textContent = `${parseInt(netWorth).toLocaleString()} INR` || '₹0';
+        });
+        
+        async function fetchActiveUsers() {
+            try {
+                const response = await fetch('/api/active-users');
+                if (response.ok) {
+                    const activeUsers = await response.json();
+                    const activitiesDiv = document.getElementById('recentActivities');
+                    
+                    activitiesDiv.innerHTML = ''; // Clear previous activities
+                    
+                    // Loop through active users and create activity items
+                    for (const [username, status] of Object.entries(activeUsers)) {
+                        const activityItem = document.createElement('div');
+                        activityItem.classList.add('activity-item');
+                        
+                        // Create username span
+                        const userSpan = document.createElement('span');
+                        userSpan.classList.add('activity-user');
+                        userSpan.textContent = username;
+
+                        // Create status span
+                        const statusSpan = document.createElement('span');
+                        statusSpan.classList.add('activity-status');
+                        statusSpan.textContent = status || 'Active Now'; // Default to "Active Now"
+                        
+                        // Append the spans to the activity item
+                        activityItem.appendChild(userSpan);
+                        activityItem.appendChild(statusSpan);
+
+                        // Append the activity item to the recent activities container
+                        activitiesDiv.appendChild(activityItem);
+                    }
+                } else {
+                    console.log('Failed to fetch active users.');
+                }
+            } catch (error) {
+                console.error('Error fetching active users:', error);
+            }
+        }
+
+        // Call the function to fetch active users when the page loads
+        window.onload = fetchActiveUsers;
+        
+     // Function to fetch notifications from the backend
+        function fetchNotifications() {
+            fetch('/api/notifications/latest')
+                .then(response => response.json())
+                .then(data => {
+                    const notificationContainer = document.getElementById('notification-container');
+                    notificationContainer.innerHTML = ''; // Clear existing notifications
+                    
+                    data.forEach(notification => {
+                        const timeAgo = timeSince(new Date(notification.timestamp));
+                        const notificationItem = `
+                            <div class="notification-item">
+                                <span>${notification.message}</span>
+                                <span class="notification-time">${timeAgo}</span>
+                            </div>
+                        `;
+                        notificationContainer.innerHTML += notificationItem;
+                    });
+                })
+                .catch(error => console.error('Error fetching notifications:', error));
+        }
+
+        // Function to calculate time ago
+        function timeSince(date) {
+            const seconds = Math.floor((new Date() - date) / 1000);
+            let interval = Math.floor(seconds / 31536000);
+            if (interval > 1) return interval + " years ago";
+            interval = Math.floor(seconds / 2592000);
+            if (interval > 1) return interval + " months ago";
+            interval = Math.floor(seconds / 86400);
+            if (interval > 1) return interval + " days ago";
+            interval = Math.floor(seconds / 3600);
+            if (interval > 1) return interval + " hours ago";
+            interval = Math.floor(seconds / 60);
+            if (interval > 1) return interval + " minutes ago";
+            return seconds + " seconds ago";
+        }
+
+        // Call the function periodically (e.g., every 5 seconds)
+        setInterval(fetchNotifications, 5000);
+
+        // Fetch notifications on page load
+        document.addEventListener("DOMContentLoaded", fetchNotifications);
 
 
     </script>

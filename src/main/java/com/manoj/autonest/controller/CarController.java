@@ -67,6 +67,8 @@ public class CarController {
         return ResponseEntity.ok(cars);
     }
     
+    
+    
     @GetMapping("/cars/{id}/image")
     public ResponseEntity<byte[]> getCarImageById(@PathVariable Long id) {
         Optional<Car> carOptional = carService.getCarById(id);
@@ -146,6 +148,25 @@ public class CarController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error deleting car.");
         }
     }
-
+    
+    // Endpoint to serve the detailed view page
+    @GetMapping("admin-page/vehiclemanagement/details/{id}")
+    public String viewCarDetails(@PathVariable Long id, Model model) {
+        model.addAttribute("carId", id); // Pass the car ID to the frontend
+        return "detailedview"; // Return the name of your detailed view HTML page
+    }
+    
+    // API endpoint to fetch car details by ID
+    @GetMapping("/api/cars/{id}")
+    @ResponseBody
+    public ResponseEntity<Car> getCarById(@PathVariable Long id) {
+        Optional<Car> car = carService.getCarById(id); // Replace with your actual method to find a car by ID
+        return car.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+    
+    @GetMapping("/admin-page/viewcars")
+    public String viewCars() {
+    	return "viewcars";
+    }
 
 }

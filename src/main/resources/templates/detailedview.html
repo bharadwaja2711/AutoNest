@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoNest - Detailed View</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: "Poppins", sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        /* Custom Scrollbar Styles */
+        ::-webkit-scrollbar {
+            width: 12px;
+            height: 12px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #b71c1c, #a50000);
+            border-radius: 10px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #a50000, #8e0000);
+            transform: scale(1.1);
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f4f4f4;
+            border-radius: 10px;
+        }
+
+        .navbar {
+            background-color: white;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .hamburger {
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #b71c1c;
+            transition: transform 0.2s ease, background-color 0.2s ease;
+            padding: 0.5rem;
+            border-radius: 5px;
+        }
+
+        .hamburger:hover {
+            background-color: #f4f4f4;
+            transform: scale(1.1);
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -250px;
+            width: 250px;
+            height: 100%;
+            background-color: #fff;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            padding-top: 2rem;
+            transition: left 0.3s ease;
+            z-index: 1000;
+            border-right: 2px solid #b71c1c;
+        }
+
+        .sidebar .logo {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        .sidebar a {
+            display: block;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            color: #333;
+            font-weight: 700;
+            transition: background-color 0.2s ease, color 0.2s ease;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .sidebar a:hover {
+            background-color: #f4f4f4;
+            color: #b71c1c;
+        }
+
+        .sidebar-open {
+            left: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            margin-left: 250px; /* Ensure the container moves accordingly */
+        }
+
+        .details-container {
+            display: flex;
+            align-items: flex-start; /* Align items to the start */
+            gap: 20px; /* Space between image and details */
+            margin-top: 20px;
+            background-color: #fff; /* White background for the details section */
+            border-radius: 8px; /* Rounded corners */
+            padding: 20px; /* Padding around details */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+        }
+
+        .car-image {
+            width: 350px; /* Fixed width for the car image */
+            height: auto; /* Maintain aspect ratio */
+            border-radius: 8px; /* Rounded corners */
+            object-fit: cover; /* Cover to maintain aspect ratio */
+        }
+
+        .car-details {
+            flex: 1; /* Allow the details to take remaining space */
+            display: flex;
+            flex-direction: column; /* Stack details vertically */
+        }
+
+        .car-details h1 {
+            font-size: 2em; /* Larger font size for the name */
+            color: #b71c1c; /* Color for the car name */
+            margin-bottom: 10px; /* Space below the name */
+        }
+
+        .car-details p {
+            margin: 5px 0; /* Space between paragraphs */
+            font-size: 1.1em; /* Slightly larger font size for details */
+            color: #555; /* Color for the details */
+        }
+
+        /* Price styling */
+        .price {
+            font-size: 1.5em; /* Larger font size for price */
+            color: #007bff; /* Bootstrap primary color for emphasis */
+            font-weight: bold; /* Bold for emphasis */
+        }
+
+        /* Button Styling */
+        .btn-update {
+            margin-top: 20px; /* Space above button */
+            padding: 10px 20px; /* Padding for button */
+            background-color: #007bff; /* Primary button color */
+            color: white; /* Text color */
+            border: none; /* No border */
+            border-radius: 5px; /* Rounded corners */
+            font-size: 16px; /* Font size */
+            cursor: pointer; /* Pointer cursor on hover */
+            transition: background-color 0.3s ease; /* Transition for hover effect */
+        }
+
+        .btn-update:hover {
+            background-color: #0056b3; /* Darker shade on hover */
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">
+            <a href="http://localhost:8080/admin-page" class="logo">
+                <img src="https://res.cloudinary.com/dtcbrjqfs/image/upload/v1724085104/tkymkigtu1enwdwqulbd.png" alt="Company Logo" id="header-img" />
+            </a>
+        </div>
+        <div class="hamburger" onclick="toggleSidebar()">&#9776;</div>
+    </nav>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <a th:href="@{/admin-page/usermanagement}">Manage Users</a>
+        <a th:href="@{/admin-page/vehiclemanagement}">Manage Cars</a>
+        <a th:href="@{/admin-page/viewcars}">View Cars</a>
+        <a th:href="@{/admin-page/forummanagement}">Forums</a>
+        <a th:href="@{/admin-page/orders}">Orders</a>
+        <a th:href="@{/profile}">Profile</a>
+        <a th:href="@{/logout}">Logout</a>
+    </div>
+
+    <div class="container">
+        <nav aria-label="breadcrumb">
+	        <ol class="breadcrumb">
+	            <li class="breadcrumb-item"><a href="/admin-page">Admin Page</a></li>
+	            <li class="breadcrumb-item"><a href="/admin-page/viewcars">View Cars</a></li>
+	            <li class="breadcrumb-item active" aria-current="page">Detailed View</li>
+	        </ol>
+	    </nav>
+        <div class="details-container">
+            <div>
+                <img id="car-image" class="car-image" src="" alt="Car Image">
+            </div>
+            
+            <div class="car-details">
+                <h1 id="car-name"></h1>
+                <p id="car-model"></p>
+                <p id="car-year"></p>
+                <p class="price" id="car-price"></p>
+                <p class="bodytype" id="body-type"></p>
+                <p class="city" id="city"></p>
+                <p class="color" id="color"></p>
+                <p class="fuel-type" id="fuel-type"></p>
+                <p class="kilometers-driven" id="kilometers-driven"></p>
+                <p class="owners" id="owners"></p>
+                <p class="transmission" id="transmission"></p>
+                <button class="btn-update">Contact Dealer</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Get car ID from the URL
+            const carId = window.location.pathname.split("/").pop();
+
+            // Fetch the car details from the server
+            fetch(`/api/cars/${carId}`)
+                .then(response => response.json())
+                .then(car => {
+                    document.getElementById('car-name').textContent = car.manufacturer;
+                    document.getElementById('car-model').textContent = `Model: ${car.model}`;
+                    document.getElementById('car-year').textContent = `Year of Purchase: ${car.yearOfPurchase}`;
+                    document.getElementById('car-price').textContent = `Price: ₹${car.price}`;
+                    document.getElementById('body-type').textContent = `Body Type: ${car.bodyType}`;
+                    document.getElementById('city').textContent = `City: ${car.city}`;
+                    document.getElementById('color').textContent = `Color: ${car.color}`;
+                    document.getElementById('fuel-type').textContent = `Fuel Type: ${car.fuelType}`;
+                    document.getElementById('kilometers-driven').textContent = `Kilometers Driven: ${car.kilometersDriven}`;
+                    document.getElementById('owners').textContent = `No of Owners: ${car.numberOfOwners}`;
+                    document.getElementById('transmission').textContent = `Transmission: ${car.transmission}`;
+
+                    const imageUrl = car.image ? `/cars/${car.id}/image` : '/static/default-car-image.png';
+                    document.getElementById('car-image').src = imageUrl;
+                })
+                .catch(error => console.error('Error fetching car details:', error));
+        });
+
+        // Sidebar toggle function
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('sidebar-open');
+            document.querySelector('.main-content').classList.toggle('sidebar-open');
+        }
+    </script>
+</body>
+</html>

@@ -4,9 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - Vehicles</title>
+    <title>AutoNest - Manage Vehicles</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body {
             font-family: "Poppins", sans-serif;
@@ -251,9 +252,10 @@
                 <img src="https://res.cloudinary.com/dtcbrjqfs/image/upload/v1724085104/tkymkigtu1enwdwqulbd.png" alt="Company Logo" id="header-img" />
             </a>
         </div>
-        <a th:href="@{/admin-page/usermanagement}">User Management</a>
-        <a th:href="@{/admin-page/vehiclemanagement}">Vehicle Management</a>
-        <a th:href="@{/admin-page/forummanagement}">Forum Management</a>
+        <a th:href="@{/admin-page/usermanagement}">Manage Users</a>
+        <a th:href="@{/admin-page/vehiclemanagement}">Manage Cars</a>
+        <a th:href="@{/admin-page/viewcars}">View Cars</a>
+        <a th:href="@{/admin-page/forummanagement}">Forums</a>
         <a th:href="@{/admin-page/orders}">Orders</a>
         <a th:href="@{/profile}">Profile</a>
         <a th:href="@{/logout}">Logout</a>
@@ -262,6 +264,14 @@
     <!-- Main Content -->
     <div class="main-content">
         <div class="dashboard">
+        <div class="container">
+	    <nav aria-label="breadcrumb">
+	        <ol class="breadcrumb">
+	            <li class="breadcrumb-item"><a href="/admin-page">Admin Page</a></li>
+	            <li class="breadcrumb-item"><a href="/admin-page/vehiclemanagement">Vehicle Management</a></li>
+	        </ol>
+	    </nav>
+	 	</div>
             <!-- Add New Car Card -->
             <div class="card card-add" onclick="window.location.href='/admin-page/vehiclemanagement/add'">
                 <i class="fas fa-car"></i>

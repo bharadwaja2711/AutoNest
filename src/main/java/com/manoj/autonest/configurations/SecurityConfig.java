@@ -1,16 +1,17 @@
 package com.manoj.autonest.configurations;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.session.HttpSessionEventPublisher;
+import org.springframework.security.core.session.SessionRegistry;
+import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.manoj.autonest.service.CustomSuccessHandler;
@@ -19,16 +20,26 @@ import com.manoj.autonest.service.CustomUserDetailsService;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-	
-	@Autowired
+
+    @Autowired
     CustomSuccessHandler customSuccessHandler;
-	
-	@Autowired
-	CustomUserDetailsService customUserDetailsService;
+
+    @Autowired
+    CustomUserDetailsService customUserDetailsService;
 
     @Bean
     public static PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public SessionRegistry sessionRegistry() {
+        return new SessionRegistryImpl();
+    }
+
+    @Bean
+    public HttpSessionEventPublisher httpSessionEventPublisher() {
+        return new HttpSessionEventPublisher();
     }
 
     @Bean
@@ -45,11 +56,17 @@ public class SecurityConfig {
                 .loginProcessingUrl("/login")
                 .successHandler(customSuccessHandler)
                 .permitAll())
-            .logout(form -> form.invalidateHttpSession(true).clearAuthentication(true)
-    				.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-    				.logoutSuccessUrl("/login?logout").permitAll());
-    		
-    		return http.build();
+            .logout(form -> form
+                .invalidateHttpSession(true)
+                .clearAuthentication(true)
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutSuccessUrl("/login?logout")
+                .permitAll())
+            .sessionManagement(session -> session
+                .maximumSessions(1)
+                .sessionRegistry(sessionRegistry()));
+
+        return http.build();
     }
 
     @Autowired

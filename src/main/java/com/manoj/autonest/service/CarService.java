@@ -1,9 +1,7 @@
 package com.manoj.autonest.service;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,7 +10,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.manoj.autonest.model.Car;
+import com.manoj.autonest.model.Notification;  // Import Notification
 import com.manoj.autonest.repositories.CarRepository;
+import com.manoj.autonest.repositories.NotificationRepository;  // Import NotificationRepository
 
 @Service
 public class CarService {
@@ -20,30 +20,55 @@ public class CarService {
     @Autowired
     private CarRepository carRepository;
 
+    @Autowired
+    private NotificationRepository notificationRepository;  // Autowire NotificationRepository
+
     public Car saveCarWithImage(Car car, MultipartFile image) throws IOException {
         if (!image.isEmpty()) {
             car.setImage(image.getBytes());
         }
-        return carRepository.save(car);
+        Car savedCar = carRepository.save(car);
+        
+        // Create a notification for car addition
+        Notification notification = new Notification();
+        notification.setMessage("New car added: " + car.getManufacturer() + " " + car.getModel());
+        notification.setTimestamp(LocalDateTime.now());
+        notificationRepository.save(notification);  // Save notification
+        
+        return savedCar;
     }
     
-    // New method to get car by id
     public Optional<Car> getCarById(Long id) {
-        // Fetch car details by its id
         return carRepository.findById(id);
     }
     
-    // New method to get all cars
     public List<Car> getAllCars() {
         return carRepository.findAll();
     }
     
     public Car updateCar(Car car) {
-        return carRepository.save(car);  // save() will update the car if it exists
+        Car updatedCar = carRepository.save(car);
+        
+        // Create a notification for car update
+        Notification notification = new Notification();
+        notification.setMessage("Car updated: " + car.getManufacturer() + " " + car.getModel());
+        notification.setTimestamp(LocalDateTime.now());
+        notificationRepository.save(notification);  // Save notification
+        
+        return updatedCar;
     }
     
     public void deleteCarById(Long id) {
-        carRepository.deleteById(id); // Delete the car from the database
+        Optional<Car> carOptional = carRepository.findById(id);
+        if (carOptional.isPresent()) {
+            Car car = carOptional.get();
+            carRepository.deleteById(id);  // Delete the car from the database
+            
+            // Create a notification for car deletion
+            Notification notification = new Notification();
+            notification.setMessage("Car deleted: " + car.getManufacturer() + " " + car.getModel());
+            notification.setTimestamp(LocalDateTime.now());
+            notificationRepository.save(notification);  // Save notification
+        }
     }
-
 }
