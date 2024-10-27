@@ -97,6 +97,8 @@ public class CarController {
         }
     }
     
+    
+    
     @PostMapping("/admin-page/vehiclemanagement/update/{id}")
     public String updateCar(@PathVariable Long id, @ModelAttribute Car car, @RequestParam("media") MultipartFile imageFile, 
                             RedirectAttributes redirectAttributes) {
@@ -168,5 +170,93 @@ public class CarController {
     public String viewCars() {
     	return "viewcars";
     }
+    
+    
+    //**********Dealer Routes**************
+    
+    @GetMapping("/dealer-page/vehiclemanagement/add")
+    public String showCarsForm(Model model) {
+        model.addAttribute("car", new Car());
+        return "dealeradd";
+    }
+    
+    @GetMapping("dealer-page/vehiclemanagement/details/{id}")
+    public String viewsCarDetails(@PathVariable Long id, Model model) {
+        model.addAttribute("carId", id); // Pass the car ID to the frontend
+        return "dealerdetailedview"; // Return the name of your detailed view HTML page
+    }
 
+    @PostMapping("/dealer-page/vehiclemanagement/add")
+    public String addCars(@ModelAttribute Car car, @RequestParam("media") MultipartFile imageFile,
+                         RedirectAttributes redirectAttributes) {
+        try {
+            carService.saveCarWithImage(car, imageFile);
+            redirectAttributes.addFlashAttribute("message", "Car added successfully!");
+        } catch (IOException e) {
+            redirectAttributes.addFlashAttribute("error", "Failed to add car.");
+            e.printStackTrace();
+        }
+
+        return "redirect:/dealer-page/vehiclemanagement/add";  // Redirect to the form page after submission
+    }
+    
+    @GetMapping("/dealer-page/vehiclemanagement/update")
+    public String showCarsForm() {
+        return "dealerupdate";
+    }
+    
+    @GetMapping("/dealer-page/vehiclemanagement/update/{id}")
+    public String showUpdateCarsForm(@PathVariable Long id, Model model) {
+        Optional<Car> carOptional = carService.getCarById(id);
+        if (carOptional.isPresent()) {
+            model.addAttribute("car", carOptional.get());  // Add the car object to the model to prepopulate the form
+            return "dealerupdatecar";  // This is the JSP or HTML file where the form will be
+        } else {
+            return "redirect:/dealer-page/vehiclemanagement";  // Redirect if car not found
+        }
+    }
+    
+    @PostMapping("/dealer-page/vehiclemanagement/update/{id}")
+    public String updateCars(@PathVariable Long id, @ModelAttribute Car car, @RequestParam("media") MultipartFile imageFile, 
+                            RedirectAttributes redirectAttributes) {
+        Optional<Car> existingCarOptional = carService.getCarById(id);
+
+        if (existingCarOptional.isPresent()) {
+            Car existingCar = existingCarOptional.get();
+
+            // Update fields from form to the existing car object
+            existingCar.setManufacturer(car.getManufacturer());
+            existingCar.setModel(car.getModel());
+            existingCar.setPrice(car.getPrice());
+            existingCar.setFuelType(car.getFuelType());
+            existingCar.setKilometersDriven(car.getKilometersDriven());
+            existingCar.setCity(car.getCity());
+            existingCar.setYearOfPurchase(car.getYearOfPurchase());
+            existingCar.setTransmission(car.getTransmission());
+            existingCar.setBodyType(car.getBodyType());
+            existingCar.setNumberOfOwners(car.getNumberOfOwners());
+            existingCar.setColor(car.getColor());
+
+            // Handle image update
+            try {
+                if (!imageFile.isEmpty()) {
+                    existingCar.setImage(imageFile.getBytes());
+                }
+                carService.updateCar(existingCar); // Save updated car
+                redirectAttributes.addFlashAttribute("message", "Car details updated successfully!");
+            } catch (IOException e) {
+                redirectAttributes.addFlashAttribute("error", "Failed to update car.");
+                e.printStackTrace();
+            }
+        } else {
+            redirectAttributes.addFlashAttribute("error", "Car not found.");
+        }
+
+        return "redirect:/dealer-page/vehiclemanagement/update/" + id;  // Redirect to the update form after submission
+    }
+    
+    @GetMapping("/dealer-page/viewcars")
+    public String viewsCars() {
+    	return "dealerviewcars";
+    }
 }

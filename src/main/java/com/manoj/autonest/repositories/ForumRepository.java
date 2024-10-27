@@ -10,6 +10,5 @@ import com.manoj.autonest.model.Forum;
 
 public interface ForumRepository extends JpaRepository<Forum, Long>{
 	
-	@Query("SELECT f.id FROM Forum f JOIN f.likedBy u WHERE u.id = :userId")
-    List<Long> findLikedForumsByUserId(@Param("userId") Long userId);
+
 }

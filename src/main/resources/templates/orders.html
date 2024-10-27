@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AutoNest - Manage Vehicles</title>
+    <title>AutoNest - Orders</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -210,9 +210,8 @@
 		}
 		
 		.card-update {
-		    background: linear-gradient(135deg, #fdd835, #fbc02d);
+		    background: linear-gradient(135deg, #2196f3, #1976d2);
 		}
-
 		
 		.card-delete {
 		    background: linear-gradient(135deg, #e53935, #d32f2f);
@@ -231,6 +230,45 @@
 		        transform: translateY(-5px);
 		    }
 		}
+		
+		/* Main Content */
+        .container {
+            margin-top: 80px;
+        }
+
+        /* Table Styles */
+        .table {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .table th {
+            background-color: #b71c1c;
+            color: #fff;
+            text-align: center;
+        }
+
+        .table td {
+            text-align: center;
+        }
+
+        .table tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .table tbody tr:hover {
+            background-color: #ffebee;
+        }
+
+        /* Headings */
+        h2 {
+            color: #b71c1c;
+            text-align: center;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
 		        
     </style>
 </head>
@@ -239,7 +277,7 @@
     <!-- Navbar -->
     <nav class="navbar">
         <div class="logo">
-            <a href="http://localhost:8080/dealer-page" class="logo">
+            <a href="http://localhost:8080/admin-page" class="logo">
                 <img src="https://res.cloudinary.com/dtcbrjqfs/image/upload/v1724085104/tkymkigtu1enwdwqulbd.png" alt="Company Logo" id="header-img" />
             </a>
         </div>
@@ -249,44 +287,61 @@
     <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
         <div class="logo">
-            <a href="http://localhost:8080/dealer-page" class="logo">
+            <a href="http://localhost:8080/admin-page" class="logo">
                 <img src="https://res.cloudinary.com/dtcbrjqfs/image/upload/v1724085104/tkymkigtu1enwdwqulbd.png" alt="Company Logo" id="header-img" />
             </a>
         </div>
-        <a th:href="@{/dealer-page}">Manage Cars</a>
-        <a th:href="@{/dealer-page/viewcars}">View Cars</a>
-        <a th:href="@{/dealer-page/forummanagement}">Forums</a>
-        <a th:href="@{/dealer-page/orders}">Orders</a>
-        <a th:href="@{/dealerprofile}">Profile</a>
+        <a th:href="@{/admin-page/usermanagement}">Manage Users</a>
+        <a th:href="@{/admin-page/vehiclemanagement}">Manage Cars</a>
+        <a th:href="@{/admin-page/viewcars}">View Cars</a>
+        <a th:href="@{/admin-page/forummanagement}">Forums</a>
+        <a th:href="@{/admin-page/orders}">Orders</a>
+        <a th:href="@{/profile}">Profile</a>
         <a th:href="@{/logout}">Logout</a>
     </div>
-
-    <!-- Main Content -->
-    <div class="main-content">
-        <div class="dashboard">
-        <div class="container">
-	    <nav aria-label="breadcrumb">
-	        <ol class="breadcrumb">
-	            <li class="breadcrumb-item"><a href="/dealer-page">Dealer Page</a></li>
-	        </ol>
-	    </nav>
-	 	</div>
-            <!-- Add New Car Card -->
-            <div class="card card-add" onclick="window.location.href='/dealer-page/vehiclemanagement/add'">
-                <i class="fas fa-car"></i>
-                <h2>Add New Car</h2>
-            </div>
-
-            <!-- Update Existing Car Card -->
-            <div class="card card-update" onclick="window.location.href='/dealer-page/vehiclemanagement/update'">
-                <i class="fas fa-edit"></i>
-                <h2>Update Car</h2>
-            </div>
-        </div>
+	
+	<!-- Main Content -->
+    <div class="container">
+        <h2>Order Management</h2>
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Payment ID</th>
+                    <th>Amount</th>
+                    <th>Currency</th>
+                    <th>Product Name</th>
+                    <th>Product Model</th>
+                    <th>User Email</th>
+                    <th>User Mobile No</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="order : ${orders}">
+                    <td th:text="${order.id}"></td>
+                    <td th:text="${order.paymentId}"></td>
+                    <td th:text="${order.amount}"></td>
+                    <td th:text="${order.currency}"></td>
+                    <td th:text="${order.productName}"></td>
+                    <td th:text="${order.productModel}"></td>
+                    <td th:text="${order.userEmail}"></td>
+                    <td th:text="${order.userMobno}"></td>
+                </tr>
+            </tbody>
+        </table>
     </div>
+    
 
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <script>
+    
+    window.onload = function() {
+        const orderRows = document.querySelectorAll("tbody tr");
+        const orderCount = orderRows.length;
+        localStorage.setItem("orderCount", orderCount);
+        console.log("Number of orders stored in localStorage:", orderCount);
+    };
+    
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');
             sidebar.classList.toggle('sidebar-open');

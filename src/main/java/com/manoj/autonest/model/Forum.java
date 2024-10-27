@@ -19,13 +19,7 @@ public class Forum {
     @JoinColumn(name = "user_id", nullable = false)
     private User user; // Add reference to the User entity
 
-    @ManyToMany
-    @JoinTable(
-        name = "forum_likes",
-        joinColumns = @JoinColumn(name = "forum_id"),
-        inverseJoinColumns = @JoinColumn(name = "user_id")
-    )
-    private Set<User> likedBy = new HashSet<>();
+    
 
     // Getters and Setters
 
@@ -59,23 +53,5 @@ public class Forum {
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public void like(User user) {
-        if (!likedBy.contains(user)) {
-            likedBy.add(user);
-        }
-    }
-
-    public void unlike(User user) {
-        likedBy.remove(user);
-    }
-
-    public int getLikeCount() {
-        return likedBy.size(); // Return the number of unique users who liked this forum
-    }
-
-    public Set<User> getLikedBy() {
-        return likedBy;
     }
 }

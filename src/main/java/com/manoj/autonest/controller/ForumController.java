@@ -39,6 +39,13 @@ public class ForumController {
         model.addAttribute("forums", forums);  // Add the list of forums to the model
         return "viewforum";  // Return the forum view (viewforum.html)
     }
+    
+    @GetMapping("/dealer-page/forummanagement")
+    public String showsForumForm(Model model) { 
+        List<Forum> forums = forumRepository.findAll(); // Fetch forums with user data
+        model.addAttribute("forums", forums);  // Add the list of forums to the model
+        return "dealerviewforum";  // Return the forum view (viewforum.html)
+    }
 
     // Display the create forum form
     @GetMapping("/createforum")
@@ -57,33 +64,7 @@ public class ForumController {
         return "redirect:/admin-page/forummanagement";
     }
 
-    @PostMapping("/like/{id}")
-    public String likeForum(@PathVariable Long id, Principal principal) {
-        Forum forum = forumRepository.findById(id)
-            .orElseThrow(() -> new IllegalArgumentException("Invalid forum ID"));
-
-        // Fetch the logged-in user
-        User loggedInUser = userRepository.findByEmail(principal.getName());
-
-        if (forum.getLikedBy().contains(loggedInUser)) {
-            // If the user already liked, you might want to handle this case
-            // For example, you can choose to unlike or show a message
-            forum.unlike(loggedInUser); // Optional: implement an unlike method
-        } else {
-            forum.like(loggedInUser); // Like the post
-        }
-
-        forumRepository.save(forum); // Save the updated forum
-        return "redirect:/admin-page/forummanagement"; // Redirect to the forum management page
-    }
     
-    @GetMapping("/api/user/liked-reviews")
-    @ResponseBody
-    public ResponseEntity<List<Long>> getLikedReviews(Principal principal) {
-        User user = userRepository.findByEmail(principal.getName());
-        List<Long> likedForumIds = forumRepository.findLikedForumsByUserId(user.getId());
-        return ResponseEntity.ok(likedForumIds);
-    }
 
 
 }

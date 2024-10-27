@@ -264,7 +264,7 @@
 		    </div>
 		    <div class="card">
 		        <h2>Total Orders</h2>
-		        <p>750</p>
+		        <p><span id="orderCount">0</span></p>
 		    </div>
 		    <div class="card">
 		        <h2>Net Worth</h2>
@@ -401,7 +401,13 @@
         // Fetch notifications on page load
         document.addEventListener("DOMContentLoaded", fetchNotifications);
 
+        window.onload = function() {
+            // Retrieve the order count from localStorage
+            const orderCount = localStorage.getItem("orderCount") || 0; // Default to 0 if not found
 
+            // Update the order count display
+            document.getElementById("orderCount").textContent = orderCount;
+        };
     </script>
 </body>
 

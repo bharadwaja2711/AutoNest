@@ -212,42 +212,66 @@
             }
         }
         
-        .form-container {
-            max-width: 600px;
-            margin: 50px auto;
-            background-color: white;
-            padding: 20px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-        }
-
-        .form-container h2 {
-            color: #b71c1c;
-            margin-bottom: 20px;
-        }
-
-        .btn-submit {
-            background-color: #007bff;
-            color: white;
+        .btn-3d {
+            position: absolute;
+            top: 20px;
+            right: 20px;
             padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            color: white;
+            background-color: #007bff;
             border: none;
             border-radius: 5px;
+            box-shadow: 0 4px #0056b3;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: all 0.3s ease;
         }
 
-        .btn-submit:hover {
+        .btn-3d:hover {
             background-color: #0056b3;
+            box-shadow: 0 6px #003f7f;
+            transform: translateY(-2px);
+        }
+
+        .btn-3d:active {
+            box-shadow: 0 2px #003f7f;
+            transform: translateY(2px);
         }
         
-        /* Apply red border and shadow when input fields are focused */
-.form-control:focus {
-    border-color: #b71c1c; /* Red border color */
-    box-shadow: 0 0 5px rgba(183, 28, 28, 0.8); /* Red glowing shadow */
-    outline: none; /* Remove default blue outline */
-    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for focus effect */
-}
+        /* Styling for the review cards */
+        .review-card {
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px; /* Add space between each review */
+            padding: 20px;
+            background-color: #fff;
+        }
+
+        .review-card .card-title {
+            font-size: 1.5rem;
+            color: #b71c1c;
+        }
+
+        .review-card .card-text {
+            font-size: 1.1rem;
+            color: #333;
+        }
         
+        /* Heart button styling */
+        .heart {
+            cursor: pointer;
+            font-size: 24px;
+            color: #ccc; /* Default color */
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            transition: color 0.3s;
+        }
+
+        .heart.liked {
+            color: red; /* Color when liked */
+        }
     </style>
 </head>
 
@@ -255,10 +279,11 @@
     <!-- Navbar -->
     <nav class="navbar">
         <div class="logo">
-        	<a href="http://localhost:8080/admin-page" class="logo">
+        	<a href="http://localhost:8080/dealer-page" class="logo">
             	<img src="https://res.cloudinary.com/dtcbrjqfs/image/upload/v1724085104/tkymkigtu1enwdwqulbd.png" alt="Company Logo" id="header-img" />
         	</a>
         </div>
+        <div class="hamburger" onclick="toggleSidebar()">&#9776;</div>
     </nav>
 
     <!-- Sidebar -->
@@ -268,38 +293,49 @@
             	<img src="https://res.cloudinary.com/dtcbrjqfs/image/upload/v1724085104/tkymkigtu1enwdwqulbd.png" alt="Company Logo" id="header-img" />
         	</a>
         </div>
-        <a th:href="@{/admin-page/usermanagement}">Manage Users</a> <!-- User Management link -->
-    	<a th:href="@{/admin-page/vehiclemanagement}">Manage Cars</a>
-    	<a th:href="@{/admin-page/viewcars}">View Cars</a>
-    	<a th:href="@{/admin-page/forummanagement}">Forums</a>
+    	<a th:href="@{/dealer-page}">Manage Cars</a>
+    	<a th:href="@{/dealer-page/viewcars}">View Cars</a>
+    	<a th:href="@{/dealer-page/forummanagement}">Forums</a>
     	<a th:href="@{/admin-page/orders}">Orders</a>
     	<a th:href="@{/profile}">Profile</a>
         <a th:href="@{/logout}">Logout</a>
     </div>
     
+    <div class="container">
+	    <nav aria-label="breadcrumb">
+	        <ol class="breadcrumb">
+	            <li class="breadcrumb-item"><a href="/admin-page">Dealer Page</a></li>
+	            <li class="breadcrumb-item active" aria-current="page">Forums</li>
+	        </ol>
+	    </nav>
+	</div>
+	
+	<a th:href="@{/createforum}">
+        <button class="btn-3d">Post Review</button>
+    </a>
     
-	
-	<div class="form-container">
-        <h2>Share Your Experience!!</h2>
-<form th:object="${forum}" th:action="@{/createforum}" method="post" class="form-container">
-    <h2>Write a Review</h2>
+    <div class="container mt-5">
+        <h1>Car Experience and Ownership Reviews</h1>
 
-    <div class="form-group">
-        <label for="title">Title:</label>
-        <input type="text" id="title" th:field="*{title}" class="form-control" required />
+        <!-- Button for creating new reviews -->
+        <a th:href="@{/createforum}">
+            <button class="btn-3d">Post Review</button>
+        </a>
+
+        <!-- Display list of forums (reviews) -->
+        <div class="mt-3">
+            <h2>Recent Reviews</h2>
+            <div th:each="forum : ${forums}">
+                <div class="review-card">
+                    <h3 class="card-title" th:text="${forum.title}">Review Title</h3>
+                    <p class="card-text" th:text="${forum.description}">Review Description</p>
+                    <!-- Displaying the user's given name who posted the review -->
+                    <p class="posted-by">Posted by: <span th:text="${forum.user.givenname}">User Name</span></p>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div class="form-group">
-        <label for="description">Description:</label>
-        <textarea id="description" th:field="*{description}" class="form-control" rows="4" required></textarea>
-    </div>
-
-    <button type="submit" class="btn btn-primary">Submit Review</button>
-</form>
-
-    </div>
-	
-	
     
 
     <script>
@@ -316,10 +352,11 @@
                 // Example: Displaying the count in a specific element
                 document.getElementById('totalUsersDisplay').textContent = totalUsersCount;
             }
-        });
-
-
+        })
     </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 
 </html>
