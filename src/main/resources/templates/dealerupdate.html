@@ -240,7 +240,7 @@
 	<!-- Navbar -->
     <nav class="navbar">
         <div class="logo">
-            <a href="http://localhost:8080/admin-page" class="logo">
+            <a href="http://localhost:8080/dealer-page" class="logo">
                 <img src="https://res.cloudinary.com/dtcbrjqfs/image/upload/v1724085104/tkymkigtu1enwdwqulbd.png" alt="Company Logo" id="header-img" />
             </a>
         </div>
@@ -250,23 +250,21 @@
     <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
         <div class="logo">
-            <a href="http://localhost:8080/admin-page" class="logo">
+            <a href="http://localhost:8080/dealer-page" class="logo">
                 <img src="https://res.cloudinary.com/dtcbrjqfs/image/upload/v1724085104/tkymkigtu1enwdwqulbd.png" alt="Company Logo" id="header-img" />
             </a>
         </div>
-        <a th:href="@{/admin-page/usermanagement}">Manage Users</a>
-        <a th:href="@{/admin-page/vehiclemanagement}">Manage Cars</a>
-        <a th:href="@{/admin-page/viewcars}">View Cars</a>
-        <a th:href="@{/admin-page/forummanagement}">Forums</a>
-        <a th:href="@{/admin-page/orders}">Orders</a>
-        <a th:href="@{/profile}">Profile</a>
+        <a th:href="@{/dealer-page}">Manage Cars</a>
+        <a th:href="@{/dealer-page/viewcars}">View Cars</a>
+        <a th:href="@{/dealer-page/forummanagement}">Forums</a>
+        <a th:href="@{/dealer-page/orders}">Orders</a>
+        <a th:href="@{/dealerprofile}">Profile</a>
         <a th:href="@{/logout}">Logout</a>
     </div>
     <div class="container">
 	    <nav aria-label="breadcrumb">
 	        <ol class="breadcrumb">
-	            <li class="breadcrumb-item"><a href="/admin-page">Admin Page</a></li>
-	            <li class="breadcrumb-item"><a href="/admin-page/vehiclemanagement">Vehicle Management</a></li>
+	            <li class="breadcrumb-item"><a href="/dealer-page">Dealer Page</a></li>
 	            <li class="breadcrumb-item active" aria-current="page">Update Cars</li>
 	        </ol>
 	    </nav>

@@ -1,220 +1,264 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
-	    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: "Poppins", sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
-
-        /* Custom Scrollbar Styles */
-        ::-webkit-scrollbar {
-            width: 12px; /* Width of the scrollbar */
-            height: 12px; /* Height of the scrollbar (for horizontal scrollbar) */
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(135deg, #b71c1c, #a50000); /* Gradient for the scrollbar thumb */
-            border-radius: 10px; /* Rounded corners */
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
-            transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition for hover effect */
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(135deg, #a50000, #8e0000); /* Darker gradient on hover */
-            transform: scale(1.1); /* Slightly enlarge on hover */
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #f4f4f4; /* Color of the scrollbar track */
-            border-radius: 10px; /* Rounded corners */
-        }
-
-        /* For Firefox */
-        .main-content,
-        .sidebar {
-            overflow-y: auto; /* Enable vertical scrolling */
-            scrollbar-width: thin; /* For Firefox */
-            scrollbar-color: #b71c1c #f4f4f4; /* For Firefox (thumb color and track color) */
-        }
-
-        /* Navbar */
-        .navbar {
-            background-color: white;
-            padding: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        .navbar .logo {
-            display: flex;
-            align-items: center;
-        }
-
-        .navbar img {
-            height: 40px; /* Set height for the logo image */
-            margin-right: 10px; /* Space between logo and text (if any) */
-        }
-
-        .hamburger {
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: #b71c1c; /* Red color for the hamburger icon */
-            transition: transform 0.2s ease, background-color 0.2s ease;
-            padding: 0.5rem;
-            border-radius: 5px;
-        }
-
-        .hamburger:hover {
-            background-color: #f4f4f4; /* Light background on hover */
-            transform: scale(1.1); /* Slightly larger on hover */
-        }
-
-        /* Sidebar */
-        .sidebar {
-            position: fixed;
-            top: 0;
-            left: -250px;
-            width: 250px;
-            height: 100%;
-            background-color: #fff;
-            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-            padding-top: 2rem;
-            transition: left 0.3s ease;
-            z-index: 1000;
-            border-right: 2px solid #b71c1c; /* Red border on the right */
-        }
-
-        .sidebar .logo {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 2rem;
-        }
-
-        .sidebar img {
-            height: 40px; /* Set height for the logo image */
-        }
-
-        .sidebar a {
-            display: block;
-            padding: 1rem 2rem;
-            text-decoration: none;
-            color: #333;
-            font-weight: 700;
-            transition: background-color 0.2s ease, color 0.2s ease;
-            border-bottom: 1px solid #e0e0e0;
-        }
-
-        .sidebar a:hover {
-            background-color: #f4f4f4;
-            color: #b71c1c; /* Red color for hover state */
-        }
-
-        /* Sidebar Open */
-        .sidebar-open {
-            left: 0;
-        }
-
-        /* Main Content */
-        .main-content {
-            padding: 20px;
-            margin-left: 0;
-            transition: margin-left 0.3s ease;
-        }
-
-        /* Dashboard Sections */
-        .dashboard {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .card {
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            transition: transform 0.3s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-        }
-
-        .card h2 {
-            margin: 0;
-            font-size: 1.5rem;
-            color: #b71c1c;
-        }
-
-        .card p {
-            font-size: 2rem;
-            margin: 0;
-            font-weight: 420;
-            color: #333;
-        }
-
-        .recent-activity,
-        .notifications {
-            margin-top: 20px;
-            padding: 20px;
-            border-radius: 10px;
-            background-color: white;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        .recent-activity h3,
-        .notifications h3 {
-            margin: 0 0 10px 0;
-            color: #b71c1c;
-        }
-
-        .activity-item,
-        .notification-item {
-            padding: 10px 0;
-            border-bottom: 1px solid #e0e0e0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .activity-item:last-child,
-        .notification-item:last-child {
-            border-bottom: none;
-        }
-
-        .activity-time,
-        .notification-time {
-            font-size: 0.9rem;
-            color: #777;
-        }
-
-        /* Responsive Design */
-        @media (min-width: 769px) {
-            .sidebar-open ~ .main-content {
-                margin-left: 250px;
-            }
-        }
-    </style>
+    <title>AutoNest - View Cars</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
+<style>
+    body {
+        font-family: "Poppins", sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+    }
 
+    /* Custom Scrollbar Styles */
+    ::-webkit-scrollbar {
+        width: 12px;
+        height: 12px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: linear-gradient(135deg, #b71c1c, #a50000);
+        border-radius: 10px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(135deg, #a50000, #8e0000);
+        transform: scale(1.1);
+    }
+
+    ::-webkit-scrollbar-track {
+        background: #f4f4f4;
+        border-radius: 10px;
+    }
+
+    /* For Firefox */
+    .main-content,
+    .sidebar {
+        overflow-y: auto;
+        scrollbar-width: thin;
+        scrollbar-color: #b71c1c #f4f4f4;
+    }
+
+    /* Navbar */
+    .navbar {
+        background-color: white;
+        padding: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar .logo {
+        display: flex;
+        align-items: center;
+    }
+
+    .navbar img {
+        height: 40px;
+        margin-right: 10px;
+    }
+
+    .hamburger {
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: #b71c1c;
+        transition: transform 0.2s ease, background-color 0.2s ease;
+        padding: 0.5rem;
+        border-radius: 5px;
+    }
+
+    .hamburger:hover {
+        background-color: #f4f4f4;
+        transform: scale(1.1);
+    }
+
+    /* Sidebar */
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: -250px;
+        width: 250px;
+        height: 100%;
+        background-color: #fff;
+        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        padding-top: 2rem;
+        transition: left 0.3s ease;
+        z-index: 1000;
+        border-right: 2px solid #b71c1c;
+    }
+
+    .sidebar .logo {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 2rem;
+    }
+
+    .sidebar img {
+        height: 40px;
+    }
+
+    .sidebar a {
+        display: block;
+        padding: 1rem 2rem;
+        text-decoration: none;
+        color: #333;
+        font-weight: 700;
+        transition: background-color 0.2s ease, color 0.2s ease;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    .sidebar a:hover {
+        background-color: #f4f4f4;
+        color: #b71c1c;
+    }
+
+    /* Sidebar Open */
+    .sidebar-open {
+        left: 0;
+    }
+
+    /* Main Content */
+    .main-content {
+        padding: 20px;
+        margin-left: 250px;
+        transition: margin-left 0.3s ease;
+    }
+
+    /* Dashboard Sections */
+    .dashboard {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 20px;
+        margin-top: 20px;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        margin-right: 50px;
+    }
+
+    .car-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    .card {
+        background-color: #f4f4f4;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        width: 300px;
+        padding: 20px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        transition: box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .card img {
+        width: 100%;
+        border-radius: 8px;
+    }
+
+    .card h3 {
+        margin: 15px 0;
+        font-size: 1.5em;
+        color: #333;
+    }
+
+    .card p {
+        color: #777;
+    }
+
+    button.btn-primary {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+
+    .search-bar {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .search-input {
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        height: 45px;
+        box-shadow: none;
+        font-size: 1rem;
+        padding: 0 20px;
+        transition: box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+
+    .search-input:focus {
+        outline: none;
+        border-color: #b71c1c;
+        box-shadow: 0 0 8px 2px rgba(183, 28, 28, 0.6);
+    }
+
+    .search-bar .btn {
+        border-radius: 6px;
+        background-color: #b71c1c;
+        border: 1px solid #b71c1c;
+        height: 45px;
+        font-size: 1rem;
+        color: white;
+    }
+
+    .search-bar .btn:hover {
+        background-color: #a50000;
+        border-color: #a50000;
+    }
+
+    .search-bar .input-group-append .btn {
+        box-shadow: none;
+    }
+    
+    .d-flex {
+	    justify-content: flex-start; /* Align items to the left */
+	}
+    
+    .year-filter {
+    	margin-left: 0;
+	    margin-right: 20px; /* Adjust this value as needed for spacing */
+	}
+	
+	/* Optional: Increase space below the filters if desired */
+	.mb-3 {
+	    margin-bottom: 20px; /* Adjust this value to change spacing below the filter row */
+	}
+	
+	.filter-margin {
+    margin-right: 30px; /* Adjust the spacing as needed */
+}
+	
+</style>
 <body>
     <!-- Navbar -->
     <nav class="navbar">
         <div class="logo">
-        	<a href="http://localhost:8080/user-page" class="logo">
-            	<img src="https://res-console.cloudinary.com/dtcbrjqfs/media_explorer_thumbnails/4bc3d4e46c59f58ca727228ac5f5b3e4/detailed" alt="Company Logo" id="header-img" />
-        	</a>
+            <a href="http://localhost:8080/user-page" class="logo">
+                <img src="https://res.cloudinary.com/dtcbrjqfs/image/upload/v1724085104/tkymkigtu1enwdwqulbd.png" alt="Company Logo" id="header-img" />
+            </a>
         </div>
         <div class="hamburger" onclick="toggleSidebar()">&#9776;</div>
     </nav>
@@ -222,29 +266,305 @@
     <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
         <div class="logo">
-        	<a href="http://localhost:8080/user-page" class="logo">
-            	<img src="https://res-console.cloudinary.com/dtcbrjqfs/media_explorer_thumbnails/4bc3d4e46c59f58ca727228ac5f5b3e4/detailed" alt="Company Logo" id="header-img" />
-        	</a>
+            <a href="http://localhost:8080/user-page" class="logo">
+                <img src="https://res.cloudinary.com/dtcbrjqfs/image/upload/v1724085104/tkymkigtu1enwdwqulbd.png" alt="Company Logo" id="header-img" />
+            </a>
         </div>
-    	<a th:href="@{/user-page/vehicles}">Vehicles</a>
-    	<a th:href="@{/user-page/orders}">Orders</a>
-    	<a th:href="@{/user-page/forummanagement}">Reviews</a>
-    	<a th:href="@{/profile}">Profile</a>
-        <a th:href="@{/logout}">Logout</a>
+        <a href="/user-page">View Cars</a>
+        <a href="/user-page/forummanagement">Forums</a>
+        <a href="/user-page/orders">Orders</a>
+        <a href="/profile">Profile</a>
+        <a href="/logout">Logout</a>
     </div>
 
-    <!-- Main Content -->
-    <div class="main-content" id="main-content">
-        Welcome to User Page...
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/admin-page">User Page</a></li>
+                <li class="breadcrumb-item active" aria-current="page">View Cars</li>
+            </ol>
+        </nav>
+        <div class="container mt-4">
+            <form class="search-bar">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control search-input" id="car-search-input" placeholder="Search cars by Brand or Model" aria-label="Search cars">
+                    <div class="input-group-append">
+                        <button class="btn btn-danger" type="button" id="search-button"><i class="fas fa-search"></i></button>
+                    </div>
+                </div>
+                
+                <!-- Filters Row -->
+<div class="d-flex align-items-center mb-3">
+    <div class="form-group me-3 mb-0 year-filter filter-margin" style="margin-right: 30px;">
+        <label for="year-filter" class="sr-only">Filter by Year:</label>
+        <select class="form-control" id="year-filter">
+            <option value="">All Years</option>
+            <option value="0-2">0-2 years</option>
+            <option value="2-4">2-4 years</option>
+            <option value="4-6">4-6 years</option>
+            <option value="6-8">6-8 years</option>
+            <option value="8+">8+ years</option>
+        </select>
+    </div>
+
+    <div class="form-group me-3 mb-0 price-filter filter-margin" style="margin-right: 30px;">
+        <label for="price-filter" class="sr-only">Filter by Price:</label>
+        <select class="form-control" id="price-filter">
+            <option value="">All Prices</option>
+            <option value="0-500000">Below 5 lakh</option>
+            <option value="500000-1500000">5 to 15 lakh</option>
+            <option value="1500000-2500000">15 to 25 lakh</option>
+            <option value="2500000-5000000">25 to 50 lakh</option>
+            <option value="5000000-7500000">50 lakh to 75 lakh</option>
+            <option value="7500000-100000000">75 lakh to 1 crore</option>
+            <option value="100000000">Above 1 crore</option>
+        </select>
+    </div>
+    
+    <div class="form-group me-3 mb-0 fuel-filter filter-margin" style="margin-right: 30px;">
+        <label for="fuel-filter" class="sr-only">Filter by Fuel Type:</label>
+        <select class="form-control" id="fuel-filter">
+            <option value="">All Fuel Types</option>
+            <option value="petrol">Petrol</option>
+            <option value="diesel">Diesel</option>
+            <option value="electric">Electric</option>
+            <option value="hybrid">Hybrid</option>
+        </select>
+    </div>
+    
+    <div class="form-group me-3 mb-0 sort-filter filter-margin" style="margin-right: 30px;">
+        <label for="sort-filter" class="sr-only">Sort by:</label>
+        <select class="form-control" id="sort-filter">
+            <option value="">Sort by...</option>
+            <option value="price-asc">Sort by Price (Low to High)</option>
+            <option value="price-desc">Sort by Price (High to Low)</option>
+            <option value="year-new">Sort by Year (New to Old)</option>
+            <option value="year-old">Sort by Year (Old to New)</option>
+        </select>
+    </div>
+</div>
+
+            </form>
+        </div>
+
+        <h1>All Cars</h1>
+        <div id="car-container" class="car-container"></div>
     </div>
 
     <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const carContainer = document.getElementById("car-container");
+            const searchInput = document.getElementById("car-search-input");
+            const yearFilter = document.getElementById("year-filter");
+            const priceFilter = document.getElementById("price-filter");
+            const fuelFilter = document.getElementById("fuel-filter");
+            const sortFilter = document.getElementById("sort-filter");
+            
+            let allCars = [];
+            let totalCars = 0;
+            let netWorth = 0;
+
+            // Fetch all cars from the server
+            fetch('/api/cars')
+                .then(response => response.json())
+                .then(cars => {
+                    allCars = cars;
+                    totalCars = allCars.length; // Get the total number of cars
+                    netWorth = allCars.reduce((sum, car) => sum + car.price, 0); // Calculate the total price of all cars
+
+                    // Store in local storage
+                    localStorage.setItem('totalCarsCount', totalCars);
+                    localStorage.setItem('netWorth', netWorth);
+
+                    displayCars(allCars);
+                })
+                .catch(error => console.error('Error fetching cars:', error));
+
+            // Fetch all cars from the server
+            fetch('/api/cars')
+                .then(response => response.json())
+                .then(cars => {
+                    allCars = cars;
+                    displayCars(allCars);
+                })
+                .catch(error => console.error('Error fetching cars:', error));
+
+            function displayCars(cars) {
+                carContainer.innerHTML = ''; // Clear the current car list
+                if (cars.length > 0) {
+                    cars.forEach(car => createCarCard(car));
+                } else {
+                    carContainer.innerHTML = '<p>No cars found.</p>';
+                }
+            }
+
+            function createCarCard(car) {
+                const card = document.createElement('div');
+                card.classList.add('card');
+                
+                const imageUrl = car.image ? `/cars/${car.id}/image` : '/static/default-car-image.png';
+                card.innerHTML = `
+                    <img src="${imageUrl}" alt="${car.manufacturer} ${car.model}" class="car-image">
+                    <h3>${car.manufacturer}</h3>
+                    <p>Model: ${car.model}</p>
+                    <p>Price: ₹${car.price}</p>
+                    <p>Year of Purchase: ${car.yearOfPurchase}</p>
+                    <p>Fuel Type: ${car.fuelType}</p>
+                    <button class="btn btn-primary" style="cursor: pointer;" onclick="window.location.href='/user-page/vehiclemanagement/details/${car.id}'">View Details</button>
+                `;
+                
+                carContainer.appendChild(card);
+            }
+
+            function filterCars() {
+                const searchTerm = searchInput.value.toLowerCase();
+                const selectedYearRange = yearFilter.value;
+                const selectedPriceRange = priceFilter.value;
+                const selectedFuelType = fuelFilter.value;
+                const selectedSortOption = sortFilter.value;
+
+                // Filter the original allCars array based on the criteria
+                let filteredCars = allCars.filter(car => {
+                    const brandMatch = car.manufacturer.toLowerCase().includes(searchTerm) || car.model.toLowerCase().includes(searchTerm);
+                    const yearMatch = checkYearRange(car.yearOfPurchase, selectedYearRange);
+                    const priceMatch = checkPriceRange(car.price, selectedPriceRange);
+                    const fuelMatch = checkFuelType(car.fuelType, selectedFuelType);
+                    return brandMatch && yearMatch && priceMatch && fuelMatch;
+                });
+
+                // Sort the filtered cars if a sorting option is selected
+                if (selectedSortOption) {
+                    filteredCars = sortCars(filteredCars, selectedSortOption);
+                }
+
+                displayCars(filteredCars);
+            }
+
+
+            function checkYearRange(yearOfPurchase, range) {
+                const currentYear = new Date().getFullYear();
+                const carAge = currentYear - yearOfPurchase;
+                if (range === "") return true; // No filter
+                const [min, max] = range.split('-').map(Number);
+                return carAge >= min && (max ? carAge <= max : true);
+            }
+
+            function checkPriceRange(price, range) {
+                if (range === "") return true; // No filter
+                const [min, max] = range.split('-').map(Number);
+                return price >= min && (max ? price <= max : true);
+            }
+
+            function checkFuelType(fuelType, selectedFuelType) {
+                if (selectedFuelType === "") return true; // No filter
+                return fuelType === selectedFuelType;
+            }
+
+            function sortCars(cars, option) {
+                switch (option) {
+                    case 'price-asc':
+                        return cars.sort((a, b) => a.price - b.price);
+                    case 'price-desc':
+                        return cars.sort((a, b) => b.price - a.price);
+                    case 'year-new':
+                        return cars.sort((a, b) => b.yearOfPurchase - a.yearOfPurchase);
+                    case 'year-old':
+                        return cars.sort((a, b) => a.yearOfPurchase - b.yearOfPurchase);
+                    default:
+                        return cars;
+                }
+            }
+
+            // Event listeners for filters and search
+            searchInput.addEventListener('input', filterCars);
+            yearFilter.addEventListener('change', filterCars);
+            priceFilter.addEventListener('change', filterCars);
+            fuelFilter.addEventListener('change', filterCars);
+            sortFilter.addEventListener('change', filterCars);
+        });
+        
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');
             sidebar.classList.toggle('sidebar-open');
             document.getElementById('main-content').classList.toggle('sidebar-open');
         }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const totalUsersCount = localStorage.getItem('totalUsersCount');
+            
+            if (totalUsersCount) {
+                // Example: Displaying the count in a specific element
+                document.getElementById('totalUsersDisplay').textContent = totalUsersCount;
+            }
+        })
+        
+        document.addEventListener("DOMContentLoaded", function() {
+			    const carContainer = document.getElementById("car-container");
+			    const searchInput = document.getElementById("car-search-input"); // Search input element
+		
+			    let allCars = []; // Store all cars for filtering
+		
+			    // Fetch all cars from the server
+			    fetch('/api/cars')
+			        .then(response => response.json())
+			        .then(cars => {
+			            allCars = cars; // Save the cars for filtering
+			            cars.forEach(car => {
+			                createCarCard(car);
+			            });
+			        })
+			        .catch(error => console.error('Error fetching cars:', error));
+		
+			    // Function to create a card and append it to the container
+			    function createCarCard(car) {
+			        const card = document.createElement('div');
+			        card.classList.add('card');
+		
+			        // Construct image URL
+			        const imageUrl = car.image ? `/cars/${car.id}/image` : '/static/default-car-image.png'; // Default image if no image present
+		
+			        card.innerHTML = `
+			            <img src="${imageUrl}" alt="${car.manufacturer} ${car.model}" class="car-image">
+			            <h3>${car.manufacturer}</h3>
+			            <p>Model: ${car.model}</p>
+			            <p>Price: ₹${car.price}</p>
+			            <p>Year of Purchase: ${car.yearOfPurchase}</p>
+			            <button class="btn btn-primary" style="cursor: pointer;" onclick="window.location.href='/admin-page/vehiclemanagement/update/${car.id}'">Update</button>
+			        `;
+		
+			        carContainer.appendChild(card);
+			    }
+		
+			    // Function to filter cars by both brand and model
+			    function filterCarsByBrandAndModel(searchTerm) {
+			        carContainer.innerHTML = ''; // Clear the current car list
+			        const filteredCars = allCars.filter(car => {
+			            const brandMatch = car.manufacturer.toLowerCase().includes(searchTerm.toLowerCase());
+			            const modelMatch = car.model.toLowerCase().includes(searchTerm.toLowerCase());
+			            return brandMatch || modelMatch; // Return cars that match either the brand or model
+			        });
+		
+			        if (filteredCars.length > 0) {
+			            filteredCars.forEach(car => createCarCard(car));
+			        } else {
+			            carContainer.innerHTML = '<p>No cars found for this search.</p>';
+			        }
+			    }
+		
+			    // Event listener for real-time search by both brand and model
+			    searchInput.addEventListener("input", function() {
+			        const searchTerm = searchInput.value;
+			        filterCarsByBrandAndModel(searchTerm); // Filter based on the search term
+			    });
+			});
+		
+			// Sidebar toggle function (no changes)
+			function toggleSidebar() {
+		        const sidebar = document.getElementById('sidebar');
+		        sidebar.classList.toggle('sidebar-open');
+		        document.querySelector('.main-content').classList.toggle('sidebar-open');
+		    }
     </script>
+  
 </body>
-
 </html>

@@ -63,7 +63,7 @@ public class SecurityConfig {
                 .logoutSuccessUrl("/login?logout")
                 .permitAll())
             .sessionManagement(session -> session
-                .maximumSessions(1)
+                .maximumSessions(5)
                 .sessionRegistry(sessionRegistry()));
 
         return http.build();

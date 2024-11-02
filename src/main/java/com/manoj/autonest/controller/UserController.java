@@ -241,6 +241,6 @@ public class UserController {
         // Return success response
         return ResponseEntity.ok(Map.of("status", "success", "message", "Profile updated successfully"));
     }
-    
+   
     
 }

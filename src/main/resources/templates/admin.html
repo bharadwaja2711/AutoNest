@@ -272,14 +272,6 @@
 		    </div>
         </div>
 
-        <!-- Recent Activity -->
-		<div class="recent-activity">
-		    <h3>Recent Activity</h3>
-		    <div id="recentActivities">
-		        <!-- Dynamic activity items will be added here -->
-		    </div>
-		</div>
-
         <!-- Notifications -->
 <div class="notifications">
     <h3>Notifications</h3>
@@ -316,6 +308,7 @@
         });
         
         async function fetchActiveUsers() {
+
             try {
                 const response = await fetch('/api/active-users');
                 if (response.ok) {

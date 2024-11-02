@@ -46,6 +46,13 @@ public class ForumController {
         model.addAttribute("forums", forums);  // Add the list of forums to the model
         return "dealerviewforum";  // Return the forum view (viewforum.html)
     }
+    
+    @GetMapping("/user-page/forummanagement")
+    public String showsForumsForm(Model model) { 
+        List<Forum> forums = forumRepository.findAll(); // Fetch forums with user data
+        model.addAttribute("forums", forums);  // Add the list of forums to the model
+        return "userforum";  // Return the forum view (viewforum.html)
+    }
 
     // Display the create forum form
     @GetMapping("/createforum")
@@ -53,6 +60,8 @@ public class ForumController {
         model.addAttribute("forum", new Forum());  // Ensure 'Forum' is your correct model class
         return "createforum"; // Return the create forum form view (createforum.html)
     }
+    
+    
 
     // Handle the form submission and save the forum with the logged-in user
     @PostMapping("/createforum")
@@ -61,7 +70,7 @@ public class ForumController {
         User loggedInUser = userRepository.findByEmail(principal.getName());
         forum.setUser(loggedInUser); // Set the user who posted the review
         forumRepository.save(forum); // Save the forum entry to the database
-        return "redirect:/admin-page/forummanagement";
+        return "createforum";
     }
 
     

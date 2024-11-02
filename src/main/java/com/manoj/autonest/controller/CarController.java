@@ -259,4 +259,13 @@ public class CarController {
     public String viewsCars() {
     	return "dealerviewcars";
     }
+    
+    /*************User Details*****************/
+    
+    @GetMapping("user-page/vehiclemanagement/details/{id}")
+    public String viewsCarsDetails(@PathVariable Long id, Model model) {
+        model.addAttribute("carId", id); // Pass the car ID to the frontend
+        return "userdetailedview"; // Return the name of your detailed view HTML page
+    }
+
 }

@@ -19,18 +19,20 @@ public class DashboardController {
     @GetMapping("/api/active-users")
     public Map<String, String> getActiveUsers() {
         Map<String, String> activeUsers = new HashMap<>();
+        List<Object> principals = sessionRegistry.getAllPrincipals();
 
-        // Use List<Object> instead of Set<Object>
-        List<Object> principals = sessionRegistry.getAllPrincipals(); 
+        System.out.println("Active principals count: " + principals.size());
 
         for (Object principal : principals) {
             if (principal instanceof CustomUserDetail) {
                 CustomUserDetail userDetails = (CustomUserDetail) principal;
                 String username = userDetails.getGivenname(); // Adjust as necessary
+                System.out.println("Active user: " + username);
                 activeUsers.put(username, "Active Now");
             }
         }
 
         return activeUsers;
     }
+
 }
